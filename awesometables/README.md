@@ -28,14 +28,14 @@ You will have to change the values in the `params` area to ones for you.
   },
   "load": [
     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",
-    "https://classroomtechtools.github.io/css/aristo/aristo.css",
-    "https://classroomtechtools.github.io/at/tryout.css",
+    "https://brainysmurf.github.io/css/aristo/aristo.css",
+    "https://classroomtechtools.github.io/awesometables/tryout.css",
     "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css",
-    "https://classroomtechtools.github.io/jquery-observe/jquery-observe.js",
+    "https://brainysmurf.github.io/jquery-observe/jquery-observe.js",
     "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js",
-    "https://classroomtechtools.github.io/at/awtble.js",
-    "https://classroomtechtools.github.io/at/tryout.js"
+    "https://classroomtechtools.github.io/awesometables/awtble.js",
+    "https://classroomtechtools.github.io/awesometables/tryout.js"
   ]
 }
 ```
