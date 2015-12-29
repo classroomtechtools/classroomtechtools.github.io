@@ -40,6 +40,58 @@ You will have to change the values in the `params` area to ones for you.
 }
 ```
 
+###Template
+
+Now, define the template for the search results column like so:
+
+```
+<div class="boxer">
+    <div class="box-row">
+        <div class="box leftInfo" classif="privateLeft e=Private">
+            <div column="n" class="label"></div>
+            <div column="o"></div>
+            <div column="a"></div>
+            <div class="spacer"></div>
+            <div class="kindIcon" onlyif="d=Praise"><i class="fa fa-5x fa-thumbs-up"></i></div>
+            <div class="kindIcon" onlyif="d=Flag"><i class="fa fa-5x fa-flag"></i></div>
+            <div class="kindIcon" onlyif="d=Email Teachers"><i class="fa fa-5x fa-envelope-o"></i></div>
+            <div class="kindIcon" onlyif="d=Email Parents"><i class="fa fa-5x fa-envelope-square"></i></div>
+            <div class="spacer"></div>
+            <div>"<span column="g"></span>"</div>
+            <div class="spacer"></div>
+            <div>
+               <span column="s" attr="title"><i class="fa fa-2x fa-eye"></i></span>&nbsp;
+               <!-- <span column="t" attr="title"><i class="fa fa-2x fa-pencil"></i></span> -->
+            </div>
+        </div>
+        <div class="box rightInfo" classif="privateRight e=Private">
+            <div class="siderow" onlyif="d=Praise">
+                <div column="h" paragraphs></div>
+                <div>(<span column ="x"></span>)</div>
+            </div>
+            <div class="siderow" onlyif="d=Flag">
+                <div column="h" paragraphs></div>
+                <div>(<span column ="x"></span>)</div>
+            </div>
+            <div class="siderow" onlyif="d=Email Teachers">
+                <div column="h" paragraphs></div>
+                <div>(<span column ="x"></span>)</div>
+            </div>
+            <div class="siderow" onlyif="d=Email Parents">
+                <div><span class="label">Subject: </span><span column="j"></span></div>
+                <div class="spacer"></div>
+                <div column="l" paragraphs></div>
+            </div>
+            </div>
+        </div>
+
+</div>
+<div class="comments" column="w" stringified>
+    <div class="comment-item"><b><%= name %></b>: <%= comment %></div>
+</div>
+<div class="comments"><button class="comment-button">Add Comment</button></div>
+```
+
 ##Reference
 
 Provided for your convenience.
