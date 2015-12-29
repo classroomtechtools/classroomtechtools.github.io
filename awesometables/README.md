@@ -2,11 +2,17 @@
 
 Hopefully this is useful to the general community.
 
-###Instructions:
+##Instructions:
 
 * Create a site with awesometables, with templates, the usual way
 * Define the awesometable to use the proxy, provided below (copy and paste, and deploy as web app)
 * Modify the Template sheet so that it has a `<script>` header and in the row beneath it, add the json provided below
+
+###Proxy code
+
+You need to put the contents of the link below into your domain as a web app, and deploy:
+
+* https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/proxy.gs
 
 ###This is the json to place into the `<script>` content:
 
@@ -34,7 +40,7 @@ You will have to change the values in the `params` area to ones for you.
 }
 ```
 
-###Reference
+##Reference
 
 Provided for your convenience.
 
