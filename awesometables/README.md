@@ -44,7 +44,7 @@ You will have to change the values in the `params` area to ones for you.
 
 Now, define the template for the search results column like so:
 
-```
+```html
 <div class="boxer">
     <div class="box-row">
         <div class="box leftInfo" classif="privateLeft e=Private">
