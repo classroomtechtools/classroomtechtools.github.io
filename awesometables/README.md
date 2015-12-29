@@ -8,9 +8,9 @@ Hopefully this is useful to the general community.
 * Define the awesometable to use the proxy, provided below (copy and paste, and deploy as web app)
 * Modify the Template sheet so that it has a `<script>` header and in the row beneath it, add the json provided below
 
-###This is the json to place into the <script> content:
+###This is the json to place into the `<script>` content:
 
-```
+```js
 {
   "params": {
     "formUrl": "",
