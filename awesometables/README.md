@@ -10,6 +10,8 @@ Hopefully this is useful to the general community.
 
 ###This is the json to place into the `<script>` content:
 
+You will have to change the values in the `params` area to ones for you.
+
 ```js
 {
   "params": {
