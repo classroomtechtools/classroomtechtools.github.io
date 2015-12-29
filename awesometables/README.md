@@ -20,7 +20,7 @@ You need to put the contents of the link below into your domain as a web app, an
 
 ###This is the json to place into the `<script>` content:
 
-You will have to change the values in the `params` area to ones for you.
+You will have to change the values in the `params` area to ones for you. This is what is already in the sheet.
 
 ```js
 {
