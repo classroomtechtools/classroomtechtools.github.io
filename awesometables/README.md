@@ -6,7 +6,7 @@ Hopefully this is useful to the general community.
 
 * Create a site with awesometables, with templates, the usual way
 * Define the awesometable to use the proxy, provided below (copy and paste, and deploy as web app)
-* Modify the Template sheet so that it has a <script> header and in the row beneath it, add the json provided below
+* Modify the Template sheet so that it has a `<script>` header and in the row beneath it, add the json provided below
 
 ###This is the json to place into the <script> content:
 
