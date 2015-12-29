@@ -1,6 +1,35 @@
-var URL = 'https://docs.google.com/spreadsheets/d/1EkgwDMYSn5Uo4LBcMimsJDthSAk6oBzo2l6et1AhJ8w/edit';
-var TIMEZONE = "GMT+8"; 
-var COMMONDOMAIN = 'igbis.edu.my';
+// This is free and unencumbered software released into the public domain, by classroomtechtools.com
+
+// Anyone is free to copy, modify, publish, use, compile, sell, or
+// distribute this software, either in source code form or as a compiled
+// binary, for any purpose, commercial or non-commercial, and by any
+// means.
+
+// In jurisdictions that recognize copyright laws, the author or authors
+// of this software dedicate any and all copyright interest in the
+// software to the public domain. We make this dedication for the benefit
+// of the public at large and to the detriment of our heirs and
+// successors. We intend this dedication to be an overt act of
+// relinquishment in perpetuity of all present and future rights to this
+// software under copyright law.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+// OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+
+/*
+    Alternative proxy for awesometables
+*/
+
+// You should set these to what makes sense to you
+var TIMEZONE = "GMT";  // or GMT+8 or whatever 
+var COMMONDOMAIN = '';
+// Don't adjust the below, unless you really know what you are doing
+// This is the javascript that is injected into the awesometable upon load, and loads up the external javascript files
 var JS = '!function(){["%s"].forEach(function(e,s,a){var t=void 0;e.endsWith(".js")?(t=document.createElement("script"),t.src=e,t.async=!1):e.endsWith(".css")&&(t=document.createElement("link"),t.rel="stylesheet",t.href=e),s===a.length-1&&(t.onload=function(){main(%s)}),document.head.appendChild(t)})}();';
 
 Date.prototype.formatted = function(tmz) {
@@ -21,16 +50,19 @@ Date.prototype.formatted = function(tmz) {
     return Utilities.formatString(ret, ordinal);
 };
 
+/*
+    Convenient testing function
+*/
 function test_doGet() {
   var e = {};
   e.parameter = {};
   e.parameters = {};
-  e.parameter.url = "https://docs.google.com/spreadsheets/d/1EkgwDMYSn5Uo4LBcMimsJDthSAk6oBzo2l6et1AhJ8w/edit#gid=614524659";
-  e.parameter.sheet = 'Data';
-  e.parameter.range = 'A:X';
-  e.parameter.templateSheet = 'Template';
-  e.parameter.templateRange = 'A1:B2';
-  e.parameters.callback = 'callback';
+  e.parameter.url = ""; // url of the spreadsheet
+  e.parameter.sheet = 'Data';  // sheet with the data
+  e.parameter.range = 'A:X';  // the range in the sheet
+  e.parameter.templateSheet = 'Template';  // Name of the template 
+  e.parameter.templateRange = 'A1:B2';    
+  e.parameters.callback = 'callback';   // This does nothing
   //doGet(e);
   Logger.log(doGet(e).getContent());
 }
@@ -40,11 +72,9 @@ function doGet(e) {
   var currentUser = null;
   if (COMMONDOMAIN) currentUser = currentUserEmail.replace('@'+COMMONDOMAIN, '');
   else currentUser = currentUserEmail;
-  //e.parameter.templateSheet = 'Template';
-  //e.parameter.templateRange = 'A1:B2';
-  var ssUrl =  e.parameter.url;  // URL
-  var sheetName = e.parameter.sheet;   // 'Data';
-  var a1Notation = e.parameter.range;  // 'A:X'; 
+  var ssUrl =  e.parameter.url;
+  var sheetName = e.parameter.sheet;
+  var a1Notation = e.parameter.range;
   var sps = SpreadsheetApp.openByUrl(ssUrl);
   var sheet = sps.getSheetByName(sheetName);
   var range = sheet.getRange(a1Notation);
