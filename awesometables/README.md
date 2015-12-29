@@ -1,6 +1,8 @@
 #Code for Awesometables
 
-##Urls for the files are:
+Hopefully this is useful to the general community.
+
+###Urls for the files are:
 
 • http://classroomtechtools.github.io/awsometables/awtble.js
 • http://classroomtechtools.github.io/awsometables/tryout.js
