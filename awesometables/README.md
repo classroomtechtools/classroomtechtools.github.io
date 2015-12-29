@@ -16,6 +16,8 @@ You need to put the contents of the link below into your domain as a web app, an
 
 ###Make a copy of the Google Sheet:
 
+Actually, this is optional, but you might want to check out how a few things were done. For example, on submit scripts that "copy down" the formula defined in the first row of data, and copying data that is in one sheet to another sheet.
+
 * https://docs.google.com/spreadsheets/d/1f0kyT8Rdb-45vwr3M4gK5VyC3-7PQJtk88yy1I0xXlI/copy
 
 ###This is the json to place into the `<script>` content:
