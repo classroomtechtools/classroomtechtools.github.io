@@ -1,4 +1,6 @@
-#Code for Awesometables by [classroomtechtools.com](http://classroomtechtools.com)
+#Code for Awesometables…
+
+…by [classroomtechtools.com](http://classroomtechtools.com)
 
 These are instructions for turning awesometables into more of a web app. That means you can write javascript / jquery code to do whatever you want.
 
