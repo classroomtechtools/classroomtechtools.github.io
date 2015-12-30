@@ -225,6 +225,10 @@ this.awtble = {};
 	awtble.main = function (params) {
 		awtble.params = params;
 
+		if (awtble.params.hasOwnProperty('debug') && awtble.params.debug) {
+			debugger;
+		}
+
 		awtble.update();
 
 		// Add an observer so that we can run update whenever the data in the table changes.
