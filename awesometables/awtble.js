@@ -273,7 +273,7 @@ this.awtble = {};
 		});
 
 		// Clicking on the triangle causes an update that isn't triggered by above
-		$(document).click('.google-visualization-table-sortind', function () {awtble.update()});
+		$(document).on('click', '.google-visualization-table-sortind', function () {awtble.update()});
 
 	}
 
