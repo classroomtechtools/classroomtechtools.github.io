@@ -114,14 +114,23 @@ this.awtble = {};
 			if ($(this).attr('attr')) {
 				var attr = $(this).attr('attr');
 				$(this).attr(attr, value);
-			} else if ($(this).attr('paragraphs') === "") {
+			} else if ($(this).attr('paragraphs')) {
 				// convert value to html-friendly paragraphs
 				// with more and less button if there are a large amount of them
 				// TODO: less button (if needed?)
+				var value = $(this).attr('paragraphs');
+				var how_many = 3;
+				if (value && value.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'match') {
+					var stripNonDigits = value.replace(/[^0-9]/g, '');
+					if (!isNaN(stripNonDigits)) {
+						how_many = parseInt(stripNonDigits);
+					}
+				}
+				
 				var newValue = $("<div/>");
-				if (value.split('\n').length > 3) {
+				if (value.split('\n').length > how_many) {
 					value.split('\n').forEach(function (iValue, ii, aa) {
-						if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii <=2 ? ' first' : '')}));
+						if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii < how_many ? ' first' : '')}));
 					});
 					$more = $('<div/>', {class: "more"});
 					//$less = $('<div/>', {class: "less"});
