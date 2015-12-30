@@ -229,13 +229,18 @@ this.awtble = {};
 				$(this).addClass(klass);
 			}
 		});
-	}
+	};
+
+	awtble.change_controler_text = function(whichController, text) {
+		awtble.controllerDefinitions[whichController] = text;
+	};
 
 /*
 	This gets called after loading, you should set up your application-specific stuff here
 */
 	awtble.main = function (params) {
 		awtble.params = params;
+		awtble.controllerDefinitions = {};
 
 		if (awtble.params.hasOwnProperty('debug') && awtble.params.debug) {
 			debugger;
@@ -243,22 +248,10 @@ this.awtble = {};
 
 		awtble.update();
 
-		// Add an observer so that we can run update whenever the data in the table changes.
+		// Add observers so that we can run update whenever the data in the table changes.
 		// The selectors and if statements make it only run once
-		// TODO: Figure out a better way
-		$('#controlersPanel')
-			.observe('childList subtree', function(record) {
-				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
-					switch ($(record.target).parents('.controlers-filters').get(0).id) {
-						case 'controlers0':
-							$('#controlers0').find('.charts-menu-button-caption').text("Filter by kind");
-							break;
-						case 'controlers2':
-							$('#controlers2').find	('.charts-menu-button-caption').text("Filter by grade");
-							break;
-					}
-				}
-		});
+
+		// Add an observer to update text whene
 
 		$(awtble.$container)
 			.observe('childList subtree', function(record) {
@@ -268,6 +261,20 @@ this.awtble = {};
 					}
 				}
 			});
+
+		$('#controlersPanel')
+			.observe('childList subtree', function(record) {
+				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
+					var thisId = $(record.target).parents('.controlers-filters').get(0).id;
+					if (awtble.controllerDefinitions.hasOwnProperty(thisId)) {
+						$('#'+thisId).find('.charts-menu-button-caption').text(awtble.controllerDefinitions[thisId].text);
+					}
+				}
+		});
+
+		// Clicking on the triangle causes an update that isn't triggered by above
+		$(document).click('.google-visualization-table-sortind', function () {awtble.update()});
+
 	}
 
 
