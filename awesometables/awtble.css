@@ -1,0 +1,58 @@
+
+.banner {
+   padding: 10px;
+   background-color: #eee;
+   margin-bottom: 20px;
+   font-size: 9pt;
+}
+
+.boxer .box-row {
+   display: table-row;
+   width:100%;
+   background-color: #FFF;
+}
+
+.boxer {
+   padding: 5px;
+}
+ 
+.boxer .box {
+   display: table-cell;
+   text-align: left;
+   vertical-align: top;
+}
+
+.leftInfo {
+   padding: 30px;
+   padding-top: 18px;
+   width: 25%;
+   min-height: 500px;
+   border: 2px solid #999;
+   border-right: none;
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
+   font-size: 80%;
+}
+
+.rightInfo {
+   padding: 5px;
+   padding-left: 30px;
+   padding-right: 30px;
+   padding-top: 15px;
+   border: 2px solid #999;
+   border-left: none;
+   width: 75%;
+   font-size: 110%;
+   min-height: 500px;
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+}
+
+.siderow {
+   margin-bottom: 5px !important;
+}
+
+.spacer {
+  padding-bottom: 10px;
+}
+
