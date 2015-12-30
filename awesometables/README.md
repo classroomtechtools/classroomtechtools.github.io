@@ -11,8 +11,8 @@ The code is released into the public domain, "as is".
 ##Instructions:
 
 * Create a site with awesometables, with templates, the usual way
-* Define the awesometable to use the proxy, provided below (copy and paste, and deploy as web app)
-* Modify the Template sheet so that it has a `<script>` header and in the row beneath it, follow instructions for adding the code
+* Template area _must_ have a `<script>` header
+* Configure the awesometable to use the proxy, provided below (copy and paste, and deploy as web app)
 
 ###Proxy
 
@@ -22,30 +22,50 @@ You need to put the contents of the link below into your domain as a web app, an
 
 ###Contents of `<script>` in Template sheet:
 
-The `params` object is passed into the main() function, and you can define whatever you want them to be. I provided some possible examples below. 
+You can leave the second row blank, in which case you get the default behaviour, which may be all that you want, but in any case the awesometable template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. There are three items ("load", "debug", and "params") that can be placed into this area that has specific meaning, see below.
 
-The `load` object is an array of external javascript and css files that are loaded sequentially, in that order. So, that is your list of dependencies. The last one is probably going to define your `main` function, that does whatever you want it to do. The values here are the minimal, but you can define more if you use other front-end development tools.
+####Import other javascript libraries and dependencies
+If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular fontawesome.io icons in your awesometable (and why wouldn't you?), you could just do this:
+
+```js
+{
+  "load": [
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css"
+  ]
+}
+```
+
+and follow the instructions on their website to get really great-looking icons.
+
+####Application-specific logic
+
+Further, if you want to have some very specific behaviour that you would like to add to your awesometable, for example, adding a click handler to a button that opens a dialog box for example, you can write an javascript file that is hosted by a service such as Github Pages, and include that. That file will have to be written with a specific template, however, so we have provided a [starter file](https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/starter.js) to get you started. (Some programming experience is useful.)
+
+Optionally, you can define a `params` object filled with inforamtion that is passed to the main() function.
+
+#####Get started
+Here is an example of a `<script>` header content that will use the starter file, and will exit to the brower's debugger.
 
 ```js
 {
   "params": {
-    "formUrl": "",
-    "prefill": "",
-    "commentUrl": "",
-    "commentPrefill": ""
+    "debug": true
   },
   "load": [
-    "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",  // jquery
-    "https://brainysmurf.github.io/jquery-observe/jquery-observe.js",    // dependency for awtble.js
-    "https://classroomtechtools.github.io/awesometables/awtble.js",      // defines functions that trick out our templating
-    "https://classroomtechtools.github.io/awesometables/tryout.js"       // application-specific logic (defines main)
+    "https://classroomtechtools.github.io/awesometables/starter.js"
   ]
 }
 ```
 
 ###Template
 
-Now, define the template for the search results column like so:
+No matter how you define your `<script>` header, you get some default behaviour, including the ability to write template code in a different way. For example, you can use a `column="x"` attribute on any tag in order to place the contents that is in column x to the content of that tag.
+
+You can use the `onlyif="x=XXX"` to tell it to display "only if" the column x is equal to XXX.
+
+You can use `classif="klass x=XXX"` to tell it to add the class 'klass' if column x is equal to XXX.
+
+You can use the `paragraphs` attribute to flag the fact that the contents of this tag are a sequence of paragraphs (denoted by return characters), and to format it with a `<p>` tag.
 
 ```html
 <div class="boxer">
