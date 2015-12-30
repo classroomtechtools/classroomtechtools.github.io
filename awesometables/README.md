@@ -2,9 +2,9 @@
 
 …by [classroomtechtools.com](http://classroomtechtools.com)
 
-If you are not familiar with awesometables, this is a tool that requires awesometables and its proxy and templating features, that can turn any Google Site into a full-fledge web app.
+If you are not familiar with [awesometables](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this is a tool that requires awesometables and its proxy and templating features, that can turn any Google Site into a full-fledge web app.
 
-If you are already familiar with awesometables, this just gives new meaning to the `<script>` information that is defined in the template of your awesometable. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an externally-defined javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our awesometable to do whatever we want. If that doesn't entice you, just by using the proxy, you gain lots of features anyway.
+If you are already familiar with [awesometables](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this just gives new meaning to the `<script>` information that is defined in the template of your awesometable. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an externally-defined javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our awesometable to do whatever we want. If that doesn't entice you, just by using the proxy, you gain lots of features anyway.
 
 The code is released into the public domain, "as is".
 
