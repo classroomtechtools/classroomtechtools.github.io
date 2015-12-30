@@ -2,9 +2,9 @@
 
 …by [classroomtechtools.com](http://classroomtechtools.com)
 
-These are instructions for turning awesometables into more of a web app. That means you can write javascript / jquery code to do whatever you want.
+If you are not familiar with awesometables, this is a tool that requires awesometables and its proxy and templating features, that can turn any Google Site into a full-fledge web app.
 
-The secret sauce is by using the provided proxy to instruct the browser, upon loading up the awesometable, to bring in any external css or javascript files, for example jquery. You can think of the proxy as injecting javascript into the browser. It loads any dependencies, reads in information from the Template, and calls the function `main` (which you'll have to define in one of your external javascript files). Whenver the awesometable changes its content, the `update` function is called. 
+If you are already familiar with awesometables, this just gives new meaning to the `<script>` information that is defined in the template of your awesometable. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an externally-defined javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our awesometable to do whatever we want. If that doesn't entice you, just by using the proxy, you gain lots of features anyway.
 
 The code is released into the public domain, "as is".
 
@@ -16,13 +16,15 @@ The code is released into the public domain, "as is".
 
 ###Proxy
 
-You need to put the contents of the link below into your domain as a web app, and deploy:
+You need to put the contents of the link below into your domain as a web app, and deploy. None of the below will work unless this is done:
 
 * https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/proxy.gs
 
+The way it works is that it injects special javascript that allows us to give the `<script>` content of the template a whole new meaning.
+
 ###Contents of `<script>` in Template sheet:
 
-You can leave the second row blank, in which case you get the default behaviour, which may be all that you want, but in any case the awesometable template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. There are three items ("load", "debug", and "params") that can be placed into this area that has specific meaning, see below.
+It can be left blank, in which case you get the default behaviour, which may be all that you want, but in any case the awesometable template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. There are three items ("load", "debug", and "params") that can be placed into this area that has specific meaning, see below. (Or just skip to the "Template" section to view the default behaviours you gain.)
 
 ####Import other javascript libraries and dependencies
 If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular fontawesome.io icons in your awesometable (and why wouldn't you?), you could just do this:
@@ -66,6 +68,10 @@ You can use the `onlyif="x=XXX"` to tell it to display "only if" the column x is
 You can use `classif="klass x=XXX"` to tell it to add the class 'klass' if column x is equal to XXX.
 
 You can use the `paragraphs` attribute to flag the fact that the contents of this tag are a sequence of paragraphs (denoted by return characters), and to format it with a `<p>` tag.
+
+Special use is the "stringified" attribute flag. That allows you to define a cell in your sheet that actually is just a stringified representation of a range (or query), and the contents allow you to define a template within a template.
+
+Here is some markup that uses all of these features.
 
 ```html
 <div class="boxer">
