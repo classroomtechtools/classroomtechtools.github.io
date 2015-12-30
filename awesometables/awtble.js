@@ -102,11 +102,11 @@ this.awtble = {};
 		$stringFilter.detach().prependTo(awtble.$controllers);
 	}
 
-/* 
-	This gets called every time something changes in the awesometable.
-	Also called upon load (via main)
-	It basically looks at the template information and adjusts the content accordingly
-*/ 
+	/* 
+		This gets called every time something changes in the awesometable.
+		Also called upon load (via main)
+		It basically looks at the template information and adjusts the content accordingly
+	*/ 
 	awtble.update = function() {
 
 		$('*[column]').each(function (item) { 
@@ -162,7 +162,7 @@ this.awtble = {};
 						});
 					}
 				} else {
-					if (value === "" || value == "#ERROR") {
+					if (value === "" || value == "#ERROR!") {
 						$me.html('Warning: Problem that needs to be fixed by admin. Comments can be added but will not be displayed here (until fixed).');
 					} else {
 						if (value == "#ERROR!") {
@@ -248,7 +248,7 @@ this.awtble = {};
 			.observe('childList subtree', function(record) {
 				if (record.addedNodes && record.addedNodes.length == 1 && record.target.className == 'google-visualization-table') {
 					if (record.previousSibling == null) {
-						update();
+						awtble.update();
 					}
 				}
 			});
