@@ -82,7 +82,7 @@
 
 	awtble.parentUpdate = awtble.update;
 
-	awtbl.update = function () {
+	awtble.update = function () {
 		awtble.makeCommentDialog('New Comment', "Enter a new comment");
 		awtble.parentUpdate();
 	};
