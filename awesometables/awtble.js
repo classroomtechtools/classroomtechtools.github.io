@@ -218,6 +218,7 @@ this.awtble = {};
 			if (variable === value) {
 				$(this).addClass(klass);
 			}
+		});
 	}
 
 /*
@@ -237,7 +238,7 @@ this.awtble = {};
 		awtble.moveStringFilterToFront($('#controlers1'));
 		$('#controlers2').find	('.charts-menu-button-caption').text("Filter by grade");
 
-		update();
+		awtble.update();
 
 		// Add an observer so that we can run update whenever the data in the table changes.
 		// The selectors and if statements make it only run once
