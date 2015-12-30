@@ -121,7 +121,9 @@ this.awtble = {};
 				// TODO: less button (if needed?)
 				var attrValue = $(this).attr('paragraphs');
 				var how_many = 3;
+				var more = false;
 				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
+					more = true;
 					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
 					if (!isNaN(stripNonDigits)) {
 						how_many = parseInt(stripNonDigits);
@@ -129,7 +131,7 @@ this.awtble = {};
 				}
 
 				var newValue = $("<div/>");
-				if (value.split('\n').length > how_many) {
+				if (more && value.split('\n').length > how_many) {
 					value.split('\n').forEach(function (iValue, ii, aa) {
 						if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii < how_many ? ' first' : '')}));
 					});
