@@ -30,7 +30,8 @@ var TIMEZONE = "GMT";  // or GMT+8 or whatever
 var COMMONDOMAIN = '';
 // Don't adjust the below, unless you really know what you are doing
 // This is the javascript that is injected into the awesometable upon load, and loads up the external javascript files
-var JS = '!function(){["%s"].forEach(function(e,s,a){var t=void 0;e.endsWith(".js")?(t=document.createElement("script"),t.src=e,t.async=!1):e.endsWith(".css")&&(t=document.createElement("link"),t.rel="stylesheet",t.href=e),s===a.length-1&&(t.onload=function(){main(%s)}),document.head.appendChild(t)})}();';
+var JS = '!function(){["%s"].forEach(function(e,s,a){var t=void 0;e.endsWith(".js")?(t=document.createElement("script"),t.src=e,t.async=!1):e.endsWith(".css")&&(t=document.createElement("link"),t.rel="stylesheet",t.href=e),s===a.length-1&&(t.onload=function(){awtble.main(%s)}),document.head.appendChild(t)})}();';
+var AUTOLOADLIBS = ["https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js","https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js","https://brainysmurf.github.io/jquery-observe/jquery-observe.js","https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js","https://classroomtechtools.github.io/awesometables/tryout.css","https://classroomtechtools.github.io/awesometables/awtble.js"];
 
 Date.prototype.formatted = function(tmz) {
     var d = this.getDate();  // day of the month

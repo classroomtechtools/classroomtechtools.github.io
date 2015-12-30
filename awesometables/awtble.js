@@ -253,7 +253,7 @@ this.awtble = {};
 
 		// Add an observer to update text whene
 
-		$(awtble.$container)
+		awtble.$container
 			.observe('childList subtree', function(record) {
 				if (record.addedNodes && record.addedNodes.length == 1 && record.target.className == 'google-visualization-table') {
 					if (record.previousSibling == null) {
@@ -262,7 +262,7 @@ this.awtble = {};
 				}
 			});
 
-		$('#controlersPanel')
+		awtble.$controllers
 			.observe('childList subtree', function(record) {
 				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 					var thisId = $(record.target).parents('.controlers-filters').get(0).id;

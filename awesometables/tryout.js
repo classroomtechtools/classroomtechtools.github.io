@@ -71,6 +71,9 @@
 		awtble.makeNewButton('Add New', "Enter a new item");
 		awtble.makeReloadButton();
 
+		awtble.change_controler_text('controlers0', 'Filter by kind');
+		awtble.change_controler_text('controlers2', 'Filter by grade');
+
 		$('#controlers0').find('.charts-menu-button-caption').text("Filter by kind");
 		$('#controlers1').find('input')
 			.addClass('studentSearch')
