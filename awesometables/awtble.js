@@ -267,7 +267,7 @@ this.awtble = {};
 				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 					var thisId = $(record.target).parents('.controlers-filters').get(0).id;
 					if (awtble.controllerDefinitions.hasOwnProperty(thisId)) {
-						$('#'+thisId).find('.charts-menu-button-caption').text(awtble.controllerDefinitions[thisId].text);
+						$('#'+thisId).find('.charts-menu-button-caption').text(awtble.controllerDefinitions[thisId]);
 					}
 				}
 		});
