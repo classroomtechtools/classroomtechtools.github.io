@@ -225,18 +225,7 @@ this.awtble = {};
 	This gets called after loading, you should set up your application-specific stuff here
 */
 	awtble.main = function (params) {
-		awtble.definePrefill(params.prefill);
-		awtble.updateUrl(params.formUrl);
-		awtble.updateComment(params.commentUrl, params.commentPrefill);
-		awtble.makeNewButton('Add New', "Enter a new item");
-		awtble.makeReloadButton();
-
-		$('#controlers0').find('.charts-menu-button-caption').text("Filter by kind");
-		$('#controlers1').find('input')
-			.addClass('studentSearch')
-			.attr('placeholder', "Type to filter by Student");
-		awtble.moveStringFilterToFront($('#controlers1'));
-		$('#controlers2').find	('.charts-menu-button-caption').text("Filter by grade");
+		awtble.params = params;
 
 		awtble.update();
 
