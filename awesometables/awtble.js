@@ -118,15 +118,15 @@ this.awtble = {};
 				// convert value to html-friendly paragraphs
 				// with more and less button if there are a large amount of them
 				// TODO: less button (if needed?)
-				var value = $(this).attr('paragraphs');
+				var attrValue = $(this).attr('paragraphs');
 				var how_many = 3;
-				if (value && value.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'match') {
-					var stripNonDigits = value.replace(/[^0-9]/g, '');
+				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
+					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
 					if (!isNaN(stripNonDigits)) {
 						how_many = parseInt(stripNonDigits);
 					}
 				}
-				
+
 				var newValue = $("<div/>");
 				if (value.split('\n').length > how_many) {
 					value.split('\n').forEach(function (iValue, ii, aa) {
