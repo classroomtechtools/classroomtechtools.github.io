@@ -114,9 +114,10 @@ this.awtble = {};
 			if ($(this).attr('attr')) {
 				var attr = $(this).attr('attr');
 				$(this).attr(attr, value);
-			} else if ($(this).attr('paragraphs')) {
+			} else if ($(this).attr('paragraphs') != undefined) {
 				// convert value to html-friendly paragraphs
 				// with more and less button if there are a large amount of them
+				// can define how many 
 				// TODO: less button (if needed?)
 				var attrValue = $(this).attr('paragraphs');
 				var how_many = 3;
