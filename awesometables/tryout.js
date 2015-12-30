@@ -78,7 +78,14 @@
 		awtble.moveStringFilterToFront($('#controlers1'));
 		$('#controlers2').find	('.charts-menu-button-caption').text("Filter by grade");
 
-	}
+	};
+
+	awtble.parentUpdate = awtble.update;
+
+	awtbl.update = function () {
+		awtble.makeCommentDialog('New Comment', "Enter a new comment");
+		awtble.parentUpdate();
+	};
 
 
 }(this.awtble));

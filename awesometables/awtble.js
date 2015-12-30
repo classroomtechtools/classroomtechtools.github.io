@@ -109,8 +109,6 @@ this.awtble = {};
 */ 
 	awtble.update = function() {
 
-		awtble.makeCommentDialog('New Comment', "Enter a new comment");
-
 		$('*[column]').each(function (item) { 
 			var value = $(this).parents('.wrapper').data( $(this).attr('column') );
 			if ($(this).attr('attr')) {
