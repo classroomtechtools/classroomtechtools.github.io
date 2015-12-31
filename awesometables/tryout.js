@@ -152,7 +152,7 @@
 
 	awtble.main = function (params) {
 		//awtble.parentMain(params);   // Let it set up as normal
-		awtble.Prototype.main.call(params);
+		awtble.prototype.main.call(params);
 		awtble.controllerDefinitions = {};
 
 		var form = awtble.url.urlPrefillEmbed(params.formUrl, params.prefill);
