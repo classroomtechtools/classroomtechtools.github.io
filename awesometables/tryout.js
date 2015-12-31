@@ -41,9 +41,9 @@
 		$('#newButton').button({icons:{primary:'ui-icon-circle-plus'}});
 		$('#addNewDialog').dialog({
 			autoOpen:false, 
-			height:700, 
-			width:"90%", 
-			modal:true, 
+			height:700,
+			width:"90%",
+			modal:true,
 			draggable:false,
 			show:"fadeIn",
 			position: { my: 'top', at: 'top+15' },
@@ -59,7 +59,7 @@
 	}
 
 	awtble.buttons.makeReloadButton = function() {
-		awtble.$container.before($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
+		awtble.$topContainer.append($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
 		$('#refreshButton').click(function () {
 			window.location.reload();
 		});
@@ -68,7 +68,7 @@
 	awtble.url = {};   // routines that help us with URLS
 
 	awtble.url.urlPrefillEmbed = function(url, prefill) {
-		return awtble.url.makeEmbedded(url + awtble.url.extractPrefill(prefill));
+		return awtble.url.makeEmbedded(url +'viewform?' + awtble.url.extractPrefill(prefill));
 	}
 
 	/* 
