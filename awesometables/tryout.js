@@ -24,6 +24,26 @@
 
 (function (awtble) {
 
+	awtble.controllers.didChange(thisId) {
+		awtble.controllers.changeDropdownControllerText(thisId, awtble.controllerDefinitions[thisId]);
+	};
+
+	awtble.controllers.makeControllerLeftmost = function(controller) {
+		$(controller).detach().prependTo(awtble.$controllers);
+	};
+
+	awtble.controllers.changeDropdownControllerText = function(controllerId, text) {
+		$(controllerId).find('.charts-menu-button-caption').text(text);		
+	};
+
+	/*
+		@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
+	*/
+	awtble.controllers.fixDropdownControllerText = function(controllerId, text) {
+		awtble.controllers.changeDropdownControllerText(controllerId, text);
+		awtble.controllerDefinitions[controllerId] = text;
+	};
+
 	awtble.buttons = {}; // routines that have to do with making buttons
 
 	/* 
@@ -128,10 +148,12 @@
 
 	};
 
-	awtble.parentMain = awtble.main;
+	//awtble.parentMain = awtble.main;
 
 	awtble.main = function (params) {
-		awtble.parentMain(params);   // Let it set up as normal
+		//awtble.parentMain(params);   // Let it set up as normal
+		awtble.Prototype.main.call(params);
+		awtble.controllerDefinitions = {};
 
 		var form = awtble.url.urlPrefillEmbed(params.formUrl, params.prefill);
 
@@ -139,15 +161,14 @@
 		awtble.buttons.newButtonWithEmbeddedForm(form, 'Add New', "Enter a new item");
 		awtble.buttons.makeReloadButton();
 
-		awtble.controllers.fixDropdownControllerText('controlers0', 'Filter by kind');
-		awtble.controllers.fixDropdownControllerText('controlers2', 'Filter by grade');
-		awtble.controllers.makeControllerLeftmost('controlers1');
+		awtble.controllers.fixDropdownControllerText('#controlers0', 'Filter by kind');
+		awtble.controllers.fixDropdownControllerText('#controlers2', 'Filter by grade');
+		awtble.controllers.makeControllerLeftmost('#controlers1');
 
 		// This is just a one-time operation:
 		$('#controlers1').find('input')
 			.addClass('studentSearch')
 			.attr('placeholder', "Type to filter by Student");
-
 	};
 
 	awtble.parentUpdate = awtble.update;
