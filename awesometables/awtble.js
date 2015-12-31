@@ -53,10 +53,15 @@ this.awtble = {};
 		$('#'+controller).detach().prependTo(awtble.$controllers);
 	}
 
+	awtble.controllers.changeDropdownControllerText = function(controllerId, text) {
+		$('#'+controllerId).find('.charts-menu-button-caption').text(text);		
+	}
+
 	/*
 		@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
 	*/
 	awtble.controllers.fixDropdownControllerText = function(controllerId, text) {
+		awtble.controllers.changeDropdownControllerText(controllerId, text);
 		awtble.controllerDefinitions[controllerId] = text;
 	};
 
@@ -225,7 +230,7 @@ this.awtble = {};
 					var thisId = $(record.target).parents('.controlers-filters').get(0).id;
 					console.log(thisId);
 					if (awtble.controllerDefinitions.hasOwnProperty(thisId)) {
-						$('#'+thisId).find('.charts-menu-button-caption').text(awtble.controllerDefinitions[thisId]);
+						awtble.controllers.changeDropdownControllerText(thisId, awtble.controllerDefinitions[thisId]);
 					}
 				}
 		});
