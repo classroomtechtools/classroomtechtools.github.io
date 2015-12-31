@@ -39,7 +39,6 @@ this.awtble = {};
 		awtble.$title = $('h4.sites-embed-title');
 		awtble.$container = $('#middleContainer');
 		awtble.$count = $('#middleContainer > .count');
-		awtble.prefillPhrase = '';
 		awtble.$controllers = $('#controlersPanel');
 		awtble.$table = awtble.$container.find('.google-visualization-table-table');
 		awtble.$tableBody = awtble.$table.find('tbody');
@@ -47,60 +46,18 @@ this.awtble = {};
 		awtble.$tableSelector = '.google-visualization-table-table'; 
 	};
 
-	awtble.updateUrl = function(url) {
-		awtble.url = url;
-		if (awtble.prefillPhrase) awtble.embedUrl = url + '/viewform?' + awtble.prefillPhrase + '&embedded=true#start=embed';
-		else awtble.embedUrl = url + '/viewform?embedded=true#start=embed';
+	awtble.controllers = {};  // routines that have to do with the controllers
+
+	awtble.controllers.makeControllerLeftmost = function(controller) {
+		$('#'+controller).detach().prependTo(awtble.$controllers);
 	}
-	
-	/* 
-		Adds a "Add New" button at the top of the awesometable
+
+	/*
+		@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
 	*/
-	awtble.makeNewButton = function(buttonTitle, dialogTitle) {
-		awtble.$container.before($('<button/>', {id:'newButton', text:buttonTitle, style:'margin-bottom:10px'}));
-		awtble.$container.before($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
-		$("#addNewDialog").append($('<iframe/>', {src:awtble.embedUrl, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'}));
-		$('#newButton').button({icons:{primary:'ui-icon-circle-plus'}});
-		$('#addNewDialog').dialog({
-			autoOpen:false, 
-			height:700, 
-			width:"90%", 
-			modal:true, 
-			draggable:false,
-			show:"fadeIn",
-			position: { my: 'top', at: 'top+15' },
-			close: function (event, ui) {
-				$('#addNewDialog > iframe').detach();
-				window.location.reload();
-			}
-		});
-		$('#newButton').click(function() {
-			$('#addNewDialog').dialog("open");
-		});
-	}
-
-	awtble.makeReloadButton = function() {
-		awtble.$container.before($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
-		$('#refreshButton').click(function () {
-			window.location.reload();
-		});
-	}
-
-	awtble.definePrefill = function(prefillUrl) {
-		// Take the raw prefill Url and extract just the bits we want
-		// So we have a 'prefillPhrase'
-		awtble.prefillPhrase = prefillUrl.match(/entry.*$/)[0].split('&').reduce(function (obj, value, index) {
-			s = value.split('=');
-			if (s.length>1) obj.push(s);
-			return obj;
-		}, []).map(function (v, i, arr) {
-			return v.join('=');
-		}).join('&');
-	}
-	
-	awtble.moveStringFilterToFront = function($stringFilter) {
-		$stringFilter.detach().prependTo(awtble.$controllers);
-	}
+	awtble.controllers.fixDropdownControllerText = function(controllerId, text) {
+		awtble.controllerDefinitions[controllerId] = text;
+	};
 
 	/* 
 		This gets called every time something changes in the awesometable.
@@ -220,7 +177,7 @@ this.awtble = {};
 			var split = value.split(' ');
 			if (split.length == 0) return;
 			var klass = split[0];
-			var split = split[1].split('=');
+			split = split[1].split('=');
 			if (split.length == 0) return;
 			var column = split[0];
 			var variable = $(this).parents('.wrapper').data(column.toLowerCase());
@@ -231,20 +188,19 @@ this.awtble = {};
 		});
 	};
 
-	awtble.change_controler_text = function(whichController, text) {
-		awtble.controllerDefinitions[whichController] = text;
-	};
+	/*
+		@param {params} These can be defined from the awesometable template
 
-/*
-	This gets called after loading, you should set up your application-specific stuff here
-*/
+		This gets called after loading, you should set up your application-specific stuff here
+	*/
 	awtble.main = function (params) {
 		awtble.params = params;
-		awtble.controllerDefinitions = {};
 
 		if (awtble.params.hasOwnProperty('debug') && awtble.params.debug) {
 			debugger;
 		}
+
+		awtble.controllerDefinitions = {};
 
 		awtble.update();
 
@@ -272,7 +228,7 @@ this.awtble = {};
 				}
 		});
 
-		// Clicking on the triangle causes an update that isn't triggered by above
+		// Clicking on the triangle (actually anywhere in the header) causes an update that isn't triggered by above
 		$(document).on('click', 'th.google-visualization-table-th', function () {awtble.update()});
 
 	}
