@@ -68,7 +68,7 @@
 	awtble.url = {};   // routines that help us with URLS
 
 	awtble.url.urlPrefillEmbed = function(url, prefill) {
-		return awtble.url.makeEmbedded(url +'viewform?' + awtble.url.extractPrefill(prefill));
+		return awtble.url.makeEmbedded(url +'/viewform?' + awtble.url.extractPrefill(prefill));
 	}
 
 	/* 
