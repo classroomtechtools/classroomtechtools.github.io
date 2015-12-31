@@ -93,7 +93,7 @@
 		return url + '&embedded=true#start=embed';
 	}
 
-	awtbl.comments = {};     // app-specific stuff
+	awtble.comments = {};     // app-specific stuff
 
 	awtble.comments.setComment = function(commentUrl, prefill) {
 		awtble.commentUrl = commentUrl;
