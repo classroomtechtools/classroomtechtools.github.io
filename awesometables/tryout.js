@@ -133,8 +133,7 @@
 	awtble.main = function (params) {
 		awtble.parentMain(params);   // Let it set up as normal
 
-		var prefill = awtble.extractPrefill(params.prefill);
-		var form = awtble.urlPrefillEmbed(params.formUrl, params.prefill);
+		var form = awtble.url.urlPrefillEmbed(params.formUrl, params.prefill);
 
 		awtble.comments.setComment(params.commentUrl, params.commentPrefill);
 		awtble.buttons.newButtonWithEmbeddedForm(form, 'Add New', "Enter a new item");
