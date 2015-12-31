@@ -52,7 +52,7 @@ this.awtble = {};
 	/*
 		@param {id} The string id of the changed item, i.e. "controller0"
 	*/
-	awtble.controllers.didChange = function(id) {
+	awtble.prototype.didChange = function(id) {
 		// does nothing, override me
 	};
 
@@ -61,7 +61,7 @@ this.awtble = {};
 		Also called upon load (via main)
 		It basically looks at the template information and adjusts the content accordingly
 	*/ 
-	awtble.update = function() {
+	awtble.prototype.update = function() {
 
 		$('*[column]').each(function (item) { 
 			var value = $(this).parents('.wrapper').data( $(this).attr('column') );
@@ -190,7 +190,7 @@ this.awtble = {};
 
 		This gets called after loading, you should set up your application-specific stuff here
 	*/
-	awtble.main = function (params) {
+	awtble.prototype.main = function (params) {
 		awtble.params = params;
 
 		if (awtble.params.hasOwnProperty('debug') && awtble.params.debug) {
@@ -218,7 +218,7 @@ this.awtble = {};
 				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 					var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
 					if (awtble.controllerDefinitions.hasOwnProperty(thisId)) {
-						awtble.controllers.didChange(thisId);
+						awtble.didChange(thisId);
 					}
 				}
 		});
