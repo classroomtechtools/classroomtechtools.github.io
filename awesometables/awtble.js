@@ -37,6 +37,7 @@ this.awtble = {};
 	awtble.app = function () {
 		awtble.$sidebar = $('#sidebar');
 		awtble.$title = $('h4.sites-embed-title');
+		awtble.$topContainer = $('#topContainer');
 		awtble.$container = $('#middleContainer');
 		awtble.$count = $('#middleContainer > .count');
 		awtble.$controllers = $('#controlersPanel');
@@ -222,6 +223,7 @@ this.awtble = {};
 			.observe('childList subtree', function(record) {
 				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 					var thisId = $(record.target).parents('.controlers-filters').get(0).id;
+					console.log(thisId);
 					if (awtble.controllerDefinitions.hasOwnProperty(thisId)) {
 						$('#'+thisId).find('.charts-menu-button-caption').text(awtble.controllerDefinitions[thisId]);
 					}

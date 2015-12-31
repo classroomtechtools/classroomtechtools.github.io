@@ -35,8 +35,8 @@
 		Useful for linking a Google form in the frontend itself
 	*/
 	awtble.buttons.newButtonWithEmbeddedForm = function(formUrl, buttonTitle, dialogTitle) {
-		awtble.$container.before($('<button/>', {id:'newButton', text:buttonTitle}));
-		awtble.$container.before($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
+		awtble.$topContainer.append($('<button/>', {id:'newButton', text:buttonTitle}));
+		awtble.$topContainer.append($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
 		$("#addNewDialog").append($('<iframe/>', {src:formUrl, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'}));
 		$('#newButton').button({icons:{primary:'ui-icon-circle-plus'}});
 		$('#addNewDialog').dialog({
