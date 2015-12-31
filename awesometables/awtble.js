@@ -225,5 +225,3 @@ awesometable.prototype.main = function (params) {
 	$(document).on('click', 'th.google-visualization-table-th', function () {this.update()});
 
 }
-
-
