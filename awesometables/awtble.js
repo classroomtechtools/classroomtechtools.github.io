@@ -28,7 +28,9 @@
 
 */
 
-this.awtble = {};
+function awesometable () {}
+
+this.awtble = new awesometable;
 
 (function (awtble) {
     /*
