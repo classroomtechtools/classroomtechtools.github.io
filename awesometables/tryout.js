@@ -24,7 +24,7 @@
 
 (function (awtble) {
 
-	awtble.controllers.didChange(thisId) {
+	awtble.controllers.didChange = function(thisId) {
 		awtble.controllers.changeDropdownControllerText(thisId, awtble.controllerDefinitions[thisId]);
 	};
 

@@ -52,7 +52,7 @@ this.awtble = {};
 	/*
 		@param {id} The string id of the changed item, i.e. "controller0"
 	*/
-	awtble.controllers.didChange(id) {
+	awtble.controllers.didChange = function(id) {
 		// does nothing, override me
 	};
 
@@ -196,8 +196,6 @@ this.awtble = {};
 		if (awtble.params.hasOwnProperty('debug') && awtble.params.debug) {
 			debugger;
 		}
-
-		awtble.controllerDefinitions = {};
 
 		awtble.update();
 
