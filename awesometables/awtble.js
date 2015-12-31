@@ -216,9 +216,7 @@ awesometable.prototype.main = function (params) {
 		.observe('childList subtree', function(record) {
 			if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 				var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
-				if (this.controllerDefinitions.hasOwnProperty(thisId)) {
-					me.didChange(thisId);
-				}
+				me.didChange(thisId);
 			}
 	});
 
