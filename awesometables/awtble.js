@@ -202,11 +202,12 @@ awesometable.prototype.main = function (params) {
 
 	// Add an observer to update text whene
 
+	var me = this;
 	this.$container
 		.observe('childList subtree', function(record) {
 			if (record.addedNodes && record.addedNodes.length == 1 && record.target.className == 'google-visualization-table') {
 				if (record.previousSibling == null) {
-					this.update();
+					me.update();
 				}
 			}
 		});
@@ -216,12 +217,12 @@ awesometable.prototype.main = function (params) {
 			if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 				var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
 				if (this.controllerDefinitions.hasOwnProperty(thisId)) {
-					this.didChange(thisId);
+					me.didChange(thisId);
 				}
 			}
 	});
 
 	// Clicking on the triangle (actually anywhere in the header) causes an update that isn't triggered by above
-	$(document).on('click', 'th.google-visualization-table-th', function () {this.update()});
+	$(document).on('click', 'th.google-visualization-table-th', function () {me.update()});
 
 }
