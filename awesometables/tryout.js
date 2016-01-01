@@ -150,11 +150,10 @@
 
 	};
 
-	//awtble.parentMain = awtble.main;
+	awtble.parentMain = awtble.main;
 
 	awtble.main = function (params) {
-		//awtble.parentMain(params);   // Let it set up as normal
-		this.prototype.main.call(params);
+		awtble.parentMain(params);   // Let it set up as normal
 		this.controllerDefinitions = {};
 
 		var form = this.url.urlPrefillEmbed(params.formUrl, params.prefill);
