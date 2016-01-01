@@ -176,7 +176,44 @@
 
 	atjs.update = function () {
 		atjs.comments.makeCommentDialog('New Comment', "Enter a new comment");
+
 		atjs.parentUpdate();
+
+		$('*[stringified]').each(function (item) { 
+			var column = $(this).attr('column');
+			if (!column) {
+				console.log('No column attribute used with stringify... fail')
+				return;
+			}
+			var value = atjs.utils.getColumnData($(this), column);
+			// make a new div that will replace this one
+			//var comments = JSON.parse(value);
+			$me = $(this);
+			if (value instanceof Array) {
+				if (value.length == 0) {
+					$me.html("");
+				} else {
+					// We have to convert these specific html entitied otherwise the template won't recognize
+					// Or we could tell underscore templating to use a different pattern recognizer
+					// TODO: Make this less ugly
+					template = _.template($me.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"));
+					$me.html("");
+					value.forEach(function (item, index, arr) {
+						$(template(item)).appendTo($me);
+					});
+				}
+			} else {
+				if (value === "" || value == "#ERROR!") {
+					$me.html('Warning: Problem that needs to be fixed by admin. Comments can be added but will not be displayed here (until fixed).');
+				} else {
+					if (value == "#ERROR!") {
+						$me.html("");
+					}
+					console.log("Array or empty string expected! What are you?:");
+					console.log(value);
+				}
+			}
+		});
 	};
 
 
