@@ -37,7 +37,7 @@ var AUTOLOADLIBS = ["https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.m
 //var SORT = {
 //  "index": 0,  // index of the column, where zero = column A
 //};
-SORT = null;
+var SORT = null;
 
 Date.prototype.formatted = function(tmz) {
     var d = this.getDate();  // day of the month
