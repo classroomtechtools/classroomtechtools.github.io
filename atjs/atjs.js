@@ -35,16 +35,18 @@ this.atjs = {};
 		Called at the start      
     */
 	atjs.app = function () {
-		atjs.$sidebar = $('#sidebar');
-		atjs.$title = $('h4.sites-embed-title');
-		atjs.$topContainer = $('#topContainer');
-		atjs.$container = $('#middleContainer');
-		atjs.$count = $('#middleContainer > .count');
-		atjs.$controllers = $('#controlersPanel');
-		atjs.$table = atjs.$container.find('.google-visualization-table-table');
-		atjs.$tableBody = atjs.$table.find('tbody');
-		atjs.$tableRows = atjs.$tableBody.find('tr');
-		atjs.$tableSelector = '.google-visualization-table-table'; 
+		$( document ).ready(function() {
+			atjs.$sidebar = $('#sidebar');
+			atjs.$title = $('h4.sites-embed-title');
+			atjs.$topContainer = $('#topContainer');
+			atjs.$container = $('#middleContainer');
+			atjs.$count = $('#middleContainer > .count');
+			atjs.$controllers = $('#controlersPanel');
+			atjs.$table = atjs.$container.find('.google-visualization-table-table');
+			atjs.$tableBody = atjs.$table.find('tbody');
+			atjs.$tableRows = atjs.$tableBody.find('tr');
+			atjs.$tableSelector = '.google-visualization-table-table'; 
+		}
 	};
 
 	atjs.controllers = {};  // routines that have to do with the controllers
