@@ -32,21 +32,19 @@ this.atjs = {};
 
 (function (atjs) {
     /*
-		Called at the start      
+		Called at the start
     */
 	atjs.app = function () {
-		$(function() {
-			atjs.$sidebar = $('#sidebar');
-			atjs.$title = $('h4.sites-embed-title');
-			atjs.$topContainer = $('#topContainer');
-			atjs.$container = $('#middleContainer');
-			atjs.$count = $('#middleContainer > .count');
-			atjs.$controllers = $('#controlersPanel');
-			atjs.$table = atjs.$container.find('.google-visualization-table-table');
-			atjs.$tableBody = atjs.$table.find('tbody');
-			atjs.$tableRows = atjs.$tableBody.find('tr');
-			atjs.$tableSelector = '.google-visualization-table-table'; 
-		});
+		atjs.$sidebar = $('#sidebar');
+		atjs.$title = $('h4.sites-embed-title');
+		atjs.$topContainer = $('#topContainer');
+		atjs.$container = $('#middleContainer');
+		atjs.$count = $('#middleContainer > .count');
+		atjs.$controllers = $('#controlersPanel');
+		atjs.$table = atjs.$container.find('.google-visualization-table-table');
+		atjs.$tableBody = atjs.$table.find('tbody');
+		atjs.$tableRows = atjs.$tableBody.find('tr');
+		atjs.$tableSelector = '.google-visualization-table-table'; 
 	};
 
 	atjs.controllers = {};  // routines that have to do with the controllers
@@ -70,101 +68,98 @@ this.atjs = {};
 		It basically looks at the template information and adjusts the content accordingly
 	*/ 
 	atjs.update = function() {
-
-		$(function () {
-			$('*[column]').each(function (item) { 
-				var value = atjs.utils.getColumnData($(this), $(this).attr('column'));
-				if ($(this).attr('attr')) {
-					var attr = $(this).attr('attr');
-					$(this).attr(attr, value);
-				} else {
-					switch ($(this).attr('at') && $(this).attr('at').toLowerCase()) {
-						case 'after': 
-							$(this).append(value); 
-							break;
-						case 'before':
-							$(this).prepend(value); 
-							break;
-						default:
-							$(this).html(value); 
-					}
+		$('*[column]').each(function (item) { 
+			var value = atjs.utils.getColumnData($(this), $(this).attr('column'));
+			if ($(this).attr('attr')) {
+				var attr = $(this).attr('attr');
+				$(this).attr(attr, value);
+			} else {
+				switch ($(this).attr('at') && $(this).attr('at').toLowerCase()) {
+					case 'after': 
+						$(this).append(value); 
+						break;
+					case 'before':
+						$(this).prepend(value); 
+						break;
+					default:
+						$(this).html(value); 
 				}
-			});
+			}
+		});
 
-			$('*[onlyif]').each(function (item) {
-				var value = $(this).attr('onlyif');
-				if (value.indexOf('=') != -1) {
-					var column = value.split("=")[0];
-					value = value.split("=")[1];
-					var variable = $(this).parents('.wrapper').data(column.toLowerCase());
-					if (variable !== value) {
-						$(this).css('display', 'none');
-					}
-				} else {
-					if ($(this).text() !== value) {
-						$(this).css('display', 'none');
-					}
-				}
-			});
-
-			$('*[classif]').each(function (item) {
-				var value = $(this).attr('classif');
-				var split = value.split(' ');
-				if (split.length == 0) return;
-				var klass = split[0];
-				split = split[1].split('=');
-				if (split.length == 0) return;
-				var column = split[0];
+		$('*[onlyif]').each(function (item) {
+			var value = $(this).attr('onlyif');
+			if (value.indexOf('=') != -1) {
+				var column = value.split("=")[0];
+				value = value.split("=")[1];
 				var variable = $(this).parents('.wrapper').data(column.toLowerCase());
-				var value = split[1];
-				if (variable === value) {
-					$(this).addClass(klass);
+				if (variable !== value) {
+					$(this).css('display', 'none');
 				}
-			});
-
-			$('*[paragraphs]').each(function (item) {
-				var value = $(this).html();
-				$(this).html("");
-				var attrValue = $(this).attr('paragraphs');
-				var more = false;
-				var howMany = 3;
-				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
-					more = true;
-					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
-					if (!stripNonDigits || isNaN(stripNonDigits)) {
-						howMany = 3;
-					} else {
-						howMany = parseInt(stripNonDigits);
-					}
+			} else {
+				if ($(this).text() !== value) {
+					$(this).css('display', 'none');
 				}
+			}
+		});
 
-				var newValue = $("<div/>");
-				if (more && value.split('\n').length > howMany) {
-					value.split('\n').forEach(function (iValue, ii, aa) {
-						if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii < howMany ? ' first' : '')}));
-					});
-					$more = $('<div/>', {class: "more"});
-					//$less = $('<div/>', {class: "less"});
-					$more.append($('<button/>', {class: "toggle", text:"More"}));
-					newValue.find('p.first:last').addClass('first').append($more);
-					//newValue.find('p:last').addClass('last').append($less);
+		$('*[classif]').each(function (item) {
+			var value = $(this).attr('classif');
+			var split = value.split(' ');
+			if (split.length == 0) return;
+			var klass = split[0];
+			split = split[1].split('=');
+			if (split.length == 0) return;
+			var column = split[0];
+			var variable = $(this).parents('.wrapper').data(column.toLowerCase());
+			var value = split[1];
+			if (variable === value) {
+				$(this).addClass(klass);
+			}
+		});
 
-					$(this).append(newValue);
-
-					// Hide all of them, except those labeled as first
-					newValue.find('p').hide();
-					newValue.find('p.first').show();
-					newValue.find('.toggle').click(function () {
-						newValue.find('.more').toggle();
-						newValue.find('p:not(.first,.toggle)').slideToggle();
-					});
+		$('*[paragraphs]').each(function (item) {
+			var value = $(this).html();
+			$(this).html("");
+			var attrValue = $(this).attr('paragraphs');
+			var more = false;
+			var howMany = 3;
+			if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
+				more = true;
+				var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
+				if (!stripNonDigits || isNaN(stripNonDigits)) {
+					howMany = 3;
 				} else {
-					value.split('\n').forEach(function (iValue, ii, aa) {
-						newValue.append($('<p/>', {text:iValue, class:'paragraph'}));
-					});
-					$(this).append(newValue);
+					howMany = parseInt(stripNonDigits);
 				}
-			});
+			}
+
+			var newValue = $("<div/>");
+			if (more && value.split('\n').length > howMany) {
+				value.split('\n').forEach(function (iValue, ii, aa) {
+					if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii < howMany ? ' first' : '')}));
+				});
+				$more = $('<div/>', {class: "more"});
+				//$less = $('<div/>', {class: "less"});
+				$more.append($('<button/>', {class: "toggle", text:"More"}));
+				newValue.find('p.first:last').addClass('first').append($more);
+				//newValue.find('p:last').addClass('last').append($less);
+
+				$(this).append(newValue);
+
+				// Hide all of them, except those labeled as first
+				newValue.find('p').hide();
+				newValue.find('p.first').show();
+				newValue.find('.toggle').click(function () {
+					newValue.find('.more').toggle();
+					newValue.find('p:not(.first,.toggle)').slideToggle();
+				});
+			} else {
+				value.split('\n').forEach(function (iValue, ii, aa) {
+					newValue.append($('<p/>', {text:iValue, class:'paragraph'}));
+				});
+				$(this).append(newValue);
+			}
 		});
 	};
 
@@ -188,27 +183,25 @@ this.atjs = {};
 
 		// Add an observer to update text whene
 
-		$(function() {
-			atjs.$container
-				.observe('childList subtree', function(record) {
-					if (record.addedNodes && record.addedNodes.length == 1 && record.target.className == 'google-visualization-table') {
-						if (record.previousSibling == null) {
-							atjs.update();
-						}
+		atjs.$container
+			.observe('childList subtree', function(record) {
+				if (record.addedNodes && record.addedNodes.length == 1 && record.target.className == 'google-visualization-table') {
+					if (record.previousSibling == null) {
+						atjs.update();
 					}
-				});
-
-			atjs.$controllers
-				.observe('childList subtree', function(record) {
-					if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
-						var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
-						atjs.controllers.didChange(thisId);
-					}
+				}
 			});
 
-			// Clicking on the triangle (actually anywhere in the header) causes an update that isn't triggered by above
-			$(document).on('click', 'th.google-visualization-table-th', function () {atjs.update()});
+		atjs.$controllers
+			.observe('childList subtree', function(record) {
+				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
+					var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
+					atjs.controllers.didChange(thisId);
+				}
 		});
+
+		// Clicking on the triangle (actually anywhere in the header) causes an update that isn't triggered by above
+		$(document).on('click', 'th.google-visualization-table-th', function () {atjs.update()});
 	};
 
 
