@@ -31,7 +31,7 @@ The way it works is that it injects special javascript that gives the `<script>`
 It can be left blank, in which case you get the default behaviour, which may be all that you want, but in any case the template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. There are two properties ("load", and "params") that can be placed into this area that has specific meaning, see below. (Or just skip to the "Template" section to view the default behaviours you gain.)
 
 ####Import other javascript libraries and dependencies
-If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular fontawesome.io icons in your awesometable (and why wouldn't you?), you could just do this:
+If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular (Font Awesome)[http://fontawesome.io/] icons in your awesometable (and why wouldn't you?), you could just do this:
 
 ```js
 {
@@ -45,16 +45,15 @@ and follow the instructions on their website to get really great-looking icons.
 
 For your reference, if you do not define any content in the `<script>` tag, this is the default behaviour. It loads up jquery and other common tools that are used, including underscore. The jquery-observe library is required in the 
 
+```js
 {
   "load": [
-    "https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/2.1.4\/jquery.min.js",
-    "https:\/\/ajax.googleapis.com\/ajax\/libs\/jqueryui\/1.11.4\/jquery-ui.min.js",
-    "https:\/\/brainysmurf.github.io\/jquery-observe\/jquery-observe.js",
-    "https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/underscore.js\/1.8.3\/underscore-min.js",
-    "https:\/\/classroomtechtools.github.io\/awesometables\/awtble.css",
-    "https:\/\/classroomtechtools.github.io\/awesometables\/awtble.js"
+    "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",
+    "https://classroomtechtools.github.io/jquery-observe/jquery-observe.js",
+    "https://classroomtechtools.github.io/atjs/atjs.js"
   ]
 }
+```
 
 ####Application-specific logic
 
