@@ -171,7 +171,7 @@ this.atjs = {};
 		This gets called after loading, you should set up your application-specific stuff here
 	*/
 	atjs.start = function (params) {
-		this.atjs.app();
+		atjs.app();
 		atjs.params = params;
 
 		if (atjs.params.hasOwnProperty('debug') && atjs.params.debug) {
