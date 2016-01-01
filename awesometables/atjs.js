@@ -79,7 +79,7 @@ this.atjs = {};
 				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
 					more = true;
 					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
-					if (isNaN(stripNonDigits)) {
+					if (!stripNonDigits || isNaN(stripNonDigits)) {
 						howMany = 3;
 					} else {
 						howMany = parseInt(stripNonDigits);
