@@ -29,7 +29,7 @@ You need to put the contents of the link below into your domain as a web app, an
 It can be left blank, in which case you get the default behaviour, which may be all that you want, but in any case the template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. From now on, we will refer to this content as "the json object". There are two properties ("load", and "params") that has specific meaning, see below. (Or just skip to the "Template" section to view the default behaviours you gain.)
 
 ####Import other javascript libraries and dependencies
-If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular (Font Awesome)[http://fontawesome.io/] icons in your awesometable (and why wouldn't you?), you could just do this:
+If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular [Font Awesome](http://fontawesome.io/) icons in your awesometable (and why wouldn't you?), you could just do this:
 
 ```js
 {
