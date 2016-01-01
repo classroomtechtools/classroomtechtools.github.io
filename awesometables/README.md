@@ -1,10 +1,10 @@
 #atjs for Awesome Table
 
-…by [classroomtechtools.com](http://classroomtechtools.com)
+A tool and javascript "framework" when used in conjunction with Awesome Table turns a Google Site into a full-fledged web application.
 
-If you are not familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this is a tool that requires Awesome Table and its proxy and templating features, that can turn any Google Site into a full-fledge web app.
+…by [Classroom Tech Tools](http://classroomtechtools.com)
 
-If you are already familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this just gives new meaning to the `<script>` information that is defined in the template of your awesometable. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an externally-defined javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our awesometable to do whatever we want. If that doesn't entice you, just by using the proxy, you gain lots of features anyway.
+If you are already familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), atjs just gives new meaning to the `<script>` information that is defined in the template. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an external javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our Awesome Table to do the sorts of things that any web app can do.
 
 The code is released into the public domain, "as is".
 
@@ -20,11 +20,11 @@ You need to put the contents of the link below into your domain as a web app, an
 
 * https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/proxy.gs
 
-The way it works is that it injects special javascript that allows us to give the `<script>` content of the template a whole new meaning.
+The way it works is that it injects special javascript that gives the `<script>` content of the template a whole new meaning.
 
 ###Contents of `<script>` in Template sheet:
 
-It can be left blank, in which case you get the default behaviour, which may be all that you want, but in any case the awesometable template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. There are three items ("load", "debug", and "params") that can be placed into this area that has specific meaning, see below. (Or just skip to the "Template" section to view the default behaviours you gain.)
+It can be left blank, in which case you get the default behaviour, which may be all that you want, but in any case the template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. There are two properties ("load", and "params") that can be placed into this area that has specific meaning, see below. (Or just skip to the "Template" section to view the default behaviours you gain.)
 
 ####Import other javascript libraries and dependencies
 If your json object has a `load` object defined, it must be an array of strings, which represent external javascript and css files that are loaded sequentially, in that order. For example, if you wanted to use the popular fontawesome.io icons in your awesometable (and why wouldn't you?), you could just do this:
@@ -54,7 +54,7 @@ For your reference, if you do not define any content in the `<script>` tag, this
 
 ####Application-specific logic
 
-Further, if you want to have some very specific behaviour that you would like to add to your awesometable, for example, adding a click handler to a button that opens a dialog box for example, you can write an javascript file that is hosted by a service such as Github Pages, and include that. That file will have to be written with a specific template, however, so we have provided a [starter file](https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/starter.js) to get you started. (Some programming experience is useful.)
+Further, if you want to have some very specific behaviour that you would like to add to your Awesome Table, for example, adding a click handler to a button that opens a dialog box for example, you can write an javascript file that is hosted by a service such as Github Pages, and include that. That file will have to be written with a specific template, however, so we have provided a [starter file](https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/starter.js) to get you started. (Some programming experience is useful.)
 
 Optionally, you can define a `params` object filled with inforamtion that is passed to the main() function.
 
