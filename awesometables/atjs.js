@@ -80,7 +80,7 @@ this.atjs = {};
 					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
 					if (isNaN(stripNonDigits)) {
 						howMany = 3;
-					else {
+					} else {
 						howMany = parseInt(stripNonDigits);
 					}
 				}
