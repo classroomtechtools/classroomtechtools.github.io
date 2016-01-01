@@ -154,19 +154,19 @@
 
 	atjs.main = function (params) {
 		atjs.parentStart(params);   // Let it set up as normal
-		this.controllerDefinitions = {};
+		atjs.controllerDefinitions = {};
 
-		var form = this.url.urlPrefillEmbed(params.formUrl, params.prefill);
+		var form = atjs.url.urlPrefillEmbed(params.formUrl, params.prefill);
 
-		this.comments.setComment(params.commentUrl, params.commentPrefill);
-		this.buttons.newButtonWithEmbeddedForm(form, 'Add New', "Enter a new item");
-		this.buttons.makeReloadButton();
+		atjs.comments.setComment(params.commentUrl, params.commentPrefill);
+		atjs.buttons.newButtonWithEmbeddedForm(form, 'Add New', "Enter a new item");
+		atjs.buttons.makeReloadButton();
 
-		this.controllers.fixDropdownControllerText('#controlers0', 'Filter by kind');
-		this.controllers.fixDropdownControllerText('#controlers2', 'Filter by grade');
-		this.controllers.makeControllerLeftmost('#controlers1');
+		atjs.controllers.fixDropdownControllerText('#controlers0', 'Filter by kind');
+		atjs.controllers.fixDropdownControllerText('#controlers2', 'Filter by grade');
+		atjs.controllers.makeControllerLeftmost('#controlers1');
 
-		// This is just a one-time operation:
+		// atjs is just a one-time operation:
 		$('#controlers1').find('input')
 			.addClass('studentSearch')
 			.attr('placeholder', "Type to filter by Student");
@@ -175,8 +175,8 @@
 	atjs.parentUpdate = atjs.update;
 
 	atjs.update = function () {
-		this.comments.makeCommentDialog('New Comment', "Enter a new comment");
-		this.parentUpdate();
+		atjs.comments.makeCommentDialog('New Comment', "Enter a new comment");
+		atjs.parentUpdate();
 	};
 
 
