@@ -31,12 +31,13 @@ var COMMONDOMAIN = '';
 // Don't adjust the below, unless you really know what you are doing
 // This is the javascript that is injected into the awesometable upon load, and loads up the external javascript files
 var JS = '!function(){["%s"].forEach(function(e,s,a){var t=void 0;e.endsWith(".js")?(t=document.createElement("script"),t.src=e,t.async=!1):e.endsWith(".css")&&(t=document.createElement("link"),t.rel="stylesheet",t.href=e),s===a.length-1&&(t.onload=function(){atjs.start(%s)}),document.head.appendChild(t)})}();';
-var AUTOLOADLIBS = ["https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js","https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js","https://brainysmurf.github.io/jquery-observe/jquery-observe.js","https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js","https://classroomtechtools.github.io/awesometables/atjs.css","https://classroomtechtools.github.io/awesometables/atjs.js"];
+var AUTOLOADLIBS = ["https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js","https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js","https://brainysmurf.github.io/jquery-observe/jquery-observe.js","https://classroomtechtools.github.io/awesometables/atjs.css","https://classroomtechtools.github.io/awesometables/atjs.js"];
 // set SORT to null if you don't want the proxy to sort for you
-var SORT = {
-  "index": 0,
-};
-
+// If you instruct the proxy to sort by timestamp column, you get "latest entries on top" like a blog, example:
+//var SORT = {
+//  "index": 0,  // index of the column, where zero = column A
+//};
+SORT = null;
 
 Date.prototype.formatted = function(tmz) {
     var d = this.getDate();  // day of the month

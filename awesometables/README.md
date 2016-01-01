@@ -6,6 +6,10 @@ A tool and javascript "framework" when used in conjunction with Awesome Table tu
 
 If you are already familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), atjs just gives new meaning to the `<script>` information that is defined in the template. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an external javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our Awesome Table to do the sorts of things that any web app can do.
 
+If you are not already familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), Awesome Table is a google gadget plugin that works with Google Sites, which makes the Google Site the visual frontend, and uses Google Sheets as the backend for its data. By using some of the more advanced features, which are known as row-level permissions proxy and templating, you can display different content depending on the user.
+
+Like I said, it turns Google Sites into a web app.
+
 The code is released into the public domain, "as is".
 
 ##Instructions:
