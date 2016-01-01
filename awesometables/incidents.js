@@ -25,13 +25,13 @@
 (function (atjs) {
 
 	atjs.controllers.didChange = function(thisId) {
-		if (this.controllerDefinitions.hasOwnProperty(thisId)) {
-			this.controllers.changeDropdownControllerText(thisId, this.controllerDefinitions[thisId]);
+		if (atjs.controllerDefinitions.hasOwnProperty(thisId)) {
+			atjs.controllers.changeDropdownControllerText(thisId, atjs.controllerDefinitions[thisId]);
 		}
 	};
 
 	atjs.controllers.makeControllerLeftmost = function(controller) {
-		$(controller).detach().prependTo(this.$controllers);
+		$(controller).detach().prependTo(atjs.$controllers);
 	};
 
 	atjs.controllers.changeDropdownControllerText = function(controllerId, text) {
@@ -42,8 +42,8 @@
 		@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
 	*/
 	atjs.controllers.fixDropdownControllerText = function(controllerId, text) {
-		this.controllers.changeDropdownControllerText(controllerId, text);
-		this.controllerDefinitions[controllerId] = text;
+		atjs.controllers.changeDropdownControllerText(controllerId, text);
+		atjs.controllerDefinitions[controllerId] = text;
 	};
 
 	atjs.buttons = {}; // routines that have to do with making buttons
@@ -57,8 +57,8 @@
 		Useful for linking a Google form in the frontend itself
 	*/
 	atjs.buttons.newButtonWithEmbeddedForm = function(formUrl, buttonTitle, dialogTitle) {
-		this.$topContainer.append($('<button/>', {id:'newButton', text:buttonTitle}));
-		this.$topContainer.append($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
+		atjs.$topContainer.append($('<button/>', {id:'newButton', text:buttonTitle}));
+		atjs.$topContainer.append($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
 		$("#addNewDialog").append($('<iframe/>', {src:formUrl, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'}));
 		$('#newButton').button({icons:{primary:'ui-icon-circle-plus'}});
 		$('#addNewDialog').dialog({
@@ -81,7 +81,7 @@
 	}
 
 	atjs.buttons.makeReloadButton = function() {
-		this.$topContainer.append($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
+		atjs.$topContainer.append($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
 		$('#refreshButton').click(function () {
 			window.location.reload();
 		});
@@ -90,7 +90,7 @@
 	atjs.url = {};   // routines that help us with URLS
 
 	atjs.url.urlPrefillEmbed = function(url, prefill) {
-		return this.url.makeEmbedded(url +'/viewform?' + this.url.extractPrefill(prefill));
+		return atjs.url.makeEmbedded(url +'/viewform?' + atjs.url.extractPrefill(prefill));
 	}
 
 	/* 
@@ -118,12 +118,12 @@
 	atjs.comments = {};     // app-specific stuff
 
 	atjs.comments.setComment = function(commentUrl, prefill) {
-		this.commentUrl = commentUrl;
-		this.commentPrefill = prefill;
+		atjs.commentUrl = commentUrl;
+		atjs.commentPrefill = prefill;
 	};
 
 	atjs.comments.makeCommentDialog = function(buttonTitle, dialogTitle) {
-		this.$container.before($('<div/>', {id:"commentDialog", style: "display:none;", title:dialogTitle}));
+		atjs.$container.before($('<div/>', {id:"commentDialog", style: "display:none;", title:dialogTitle}));
 		$('#commentDialog').dialog({
 			autoOpen:false, 
 			height:700, 
@@ -142,8 +142,8 @@
 			var uniqueId = $(this).parents('.wrapper').data('z');
 
 			// Add prefill information to the source
-			var src = atjs.commentUrl + '?' + this.commentPrefill + '=' + uniqueId;
-			var iframe = $('<iframe/>', {id:'commentIframe', src:this.commentUrl, src:src, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'});
+			var src = atjs.commentUrl + '?' + atjs.commentPrefill + '=' + uniqueId;
+			var iframe = $('<iframe/>', {id:'commentIframe', src:atjs.commentUrl, src:src, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'});
 			$("#commentDialog").append(iframe);
 			$('#commentDialog').dialog("open");
 		});
