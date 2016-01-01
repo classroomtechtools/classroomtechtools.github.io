@@ -1,4 +1,149 @@
 
+.studentSearch {
+  width: 350px;
+  line-height:1.5em !important;
+  height: 23px !important;
+}
+
+
+.google-visualization-table-tr-sel td,
+.google-visualization-table-tr-over td {
+   background-color: #eee !important;
+}
+
+.siderow {
+   margin-bottom: 5px !important;
+}
+
+.google-visualization-table-tr-sel td,
+.google-visualization-table-tr-over td {
+}
+
+.label {
+   font-weight: bold;
+}
+
+.section {
+  margin-bottom: 10px;
+}
+
+.smalllabel {
+   font-style: italic;
+}
+
+.google-visualization-controls-categoryfilter .charts-menu-button.charts-menu-button-hover, .google-visualization-controls-categoryfilter .charts-menu-button, .google-visualization-controls-categoryfilter .charts-menu-button.charts-menu-button-active {
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    color: #4F4F4F;
+    border: 1px solid #B6B6B6;
+    background-color: buttonface;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background: #ededed url(images/bg_fallback.png) 0 0 repeat-x;
+    background: -moz-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#c4c4c4));
+    background: -webkit-linear-gradient(top, #ededed 0%,#c4c4c4 100%);
+    background: -o-linear-gradient(top, #ededed 0%,#c4c4c4 100%);
+    background: -ms-linear-gradient(top, #ededed 0%,#c4c4c4 100%);
+    background: linear-gradient(top, #ededed 0%,#c4c4c4 100%);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+    min-width: 0;
+}
+
+div.charts-menu-button-dropdown {
+    padding-top: 2px;
+    margin-left: 5px;
+}
+
+.google-visualization-table-td {
+    font-family: Georgia,serif;
+    font-size: 14px;
+}
+
+.fa {
+  opacity: 0.5;
+}
+
+.hover {
+  margin-right: 10px;
+}
+
+.comments {
+  font-family: sans-serif;
+  font-size: 10pt;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.comments > button {
+  margin-bottom: 5px;
+}
+
+.paragraph {
+  line-height: 1.2em;
+  padding-bottom: 3px;
+}
+
+.spacer {
+  padding-bottom: 10px;
+}
+
+button.toggle {
+  margin-top: 10px;
+}
+
+.toggle > .ui-button-text {
+  font-size: 8pt;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top:2px;
+  padding-bottom: 2px;
+}
+
+.privateLeft {
+  background: rgba(255,255,255,0.91);
+  background: -moz-linear-gradient(left, rgba(255,255,255,0.91) 0%, rgba(255,130,130,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,0.91)), color-stop(100%, rgba(255,130,130,1)));
+  background: -webkit-linear-gradient(left, rgba(255,255,255,0.91) 0%, rgba(255,130,130,1) 100%);
+  background: -o-linear-gradient(left, rgba(255,255,255,0.91) 0%, rgba(255,130,130,1) 100%);
+  background: -ms-linear-gradient(left, rgba(255,255,255,0.91) 0%, rgba(255,130,130,1) 100%);
+  background: linear-gradient(to right, rgba(255,255,255,0.91) 0%, rgba(255,130,130,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ff8282', GradientType=1 );  
+}
+
+.privateRight {
+  background: rgba(255,130,130,1);
+  background: -moz-linear-gradient(left, rgba(255,130,130,1) 0%, rgba(255,255,255,0.91) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,130,130,1)), color-stop(100%, rgba(255,255,255,0.91)));
+  background: -webkit-linear-gradient(left, rgba(255,130,130,1) 0%, rgba(255,255,255,0.91) 100%);
+  background: -o-linear-gradient(left, rgba(255,130,130,1) 0%, rgba(255,255,255,0.91) 100%);
+  background: -ms-linear-gradient(left, rgba(255,130,130,1) 0%, rgba(255,255,255,0.91) 100%);
+  background: linear-gradient(to right, rgba(255,130,130,1) 0%, rgba(255,255,255,0.91) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8282', endColorstr='#ffffff', GradientType=1 );
+}
+
+#controlers1 {
+  margin-left: 10px;
+}
+
+#newButton {
+  margin-left: 10px;
+}
+
+.numberOfResultsShown {
+  margin-left: 18px;
+}
+
+#pagination {
+  margin-right: 10px;
+}
+
 .banner {
    padding: 10px;
    background-color: #eee;
