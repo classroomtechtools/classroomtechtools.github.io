@@ -46,7 +46,7 @@ this.atjs = {};
 			atjs.$tableBody = atjs.$table.find('tbody');
 			atjs.$tableRows = atjs.$tableBody.find('tr');
 			atjs.$tableSelector = '.google-visualization-table-table'; 
-		}
+		});
 	};
 
 	atjs.controllers = {};  // routines that have to do with the controllers
