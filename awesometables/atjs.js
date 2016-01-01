@@ -56,7 +56,9 @@ this.atjs = {};
 		// does nothing, override me
 	};
 
-	atjs.util.getColumnData = function($item, column) {
+	atjs.utils = {};
+
+	atjs.utils.getColumnData = function($item, column) {
 		return $item.parents('.wrapper').data( $item.attr('column') );
 	}
 
@@ -68,7 +70,7 @@ this.atjs = {};
 	atjs.update = function() {
 
 		$('*[column]').each(function (item) { 
-			var value = atjs.util.getColumnData($(this), $(this).attr('column'));
+			var value = atjs.utils.getColumnData($(this), $(this).attr('column'));
 			if ($(this).attr('attr')) {
 				var attr = $(this).attr('attr');
 				$(this).attr(attr, value);
@@ -167,7 +169,7 @@ this.atjs = {};
 				console.log('No column attribute used with stringify... fail')
 				return;
 			}
-			var value = atjs.util.getColumnData($(this), column);
+			var value = atjs.utils.getColumnData($(this), column);
 			$(this).html("");
 			// make a new div that will replace this one
 			//var comments = JSON.parse(value);
