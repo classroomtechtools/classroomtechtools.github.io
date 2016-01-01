@@ -22,31 +22,31 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 
-(function (awtble) {
+(function (atjs) {
 
-	awtble.controllers.didChange = function(thisId) {
+	atjs.controllers.didChange = function(thisId) {
 		if (this.controllerDefinitions.hasOwnProperty(thisId)) {
 			this.controllers.changeDropdownControllerText(thisId, this.controllerDefinitions[thisId]);
 		}
 	};
 
-	awtble.controllers.makeControllerLeftmost = function(controller) {
+	atjs.controllers.makeControllerLeftmost = function(controller) {
 		$(controller).detach().prependTo(this.$controllers);
 	};
 
-	awtble.controllers.changeDropdownControllerText = function(controllerId, text) {
+	atjs.controllers.changeDropdownControllerText = function(controllerId, text) {
 		$(controllerId).find('.charts-menu-button-caption').text(text);		
 	};
 
 	/*
 		@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
 	*/
-	awtble.controllers.fixDropdownControllerText = function(controllerId, text) {
+	atjs.controllers.fixDropdownControllerText = function(controllerId, text) {
 		this.controllers.changeDropdownControllerText(controllerId, text);
 		this.controllerDefinitions[controllerId] = text;
 	};
 
-	awtble.buttons = {}; // routines that have to do with making buttons
+	atjs.buttons = {}; // routines that have to do with making buttons
 
 	/* 
 		@param {formUrl} The bare url of the form, no extras
@@ -56,7 +56,7 @@
 		Adds a "Add New" button at the top of the awesometable
 		Useful for linking a Google form in the frontend itself
 	*/
-	awtble.buttons.newButtonWithEmbeddedForm = function(formUrl, buttonTitle, dialogTitle) {
+	atjs.buttons.newButtonWithEmbeddedForm = function(formUrl, buttonTitle, dialogTitle) {
 		this.$topContainer.append($('<button/>', {id:'newButton', text:buttonTitle}));
 		this.$topContainer.append($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
 		$("#addNewDialog").append($('<iframe/>', {src:formUrl, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'}));
@@ -80,23 +80,23 @@
 		});
 	}
 
-	awtble.buttons.makeReloadButton = function() {
+	atjs.buttons.makeReloadButton = function() {
 		this.$topContainer.append($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
 		$('#refreshButton').click(function () {
 			window.location.reload();
 		});
 	}
 
-	awtble.url = {};   // routines that help us with URLS
+	atjs.url = {};   // routines that help us with URLS
 
-	awtble.url.urlPrefillEmbed = function(url, prefill) {
+	atjs.url.urlPrefillEmbed = function(url, prefill) {
 		return this.url.makeEmbedded(url +'/viewform?' + this.url.extractPrefill(prefill));
 	}
 
 	/* 
 		Accept the url from prefill provided by Google and reduce it to the minimal
 	*/
-	awtble.url.extractPrefill = function(prefillUrl) {
+	atjs.url.extractPrefill = function(prefillUrl) {
 		// Take the raw prefill Url and extract just the bits we want
 		// So we have a 'prefillPhrase'
 		return prefillUrl.match(/entry.*$/)[0].split('&').reduce(function (obj, value, index) {
@@ -111,18 +111,18 @@
 	/* 
 		Make an url a embedded one
 	*/
-	awtble.url.makeEmbedded = function(url) {
+	atjs.url.makeEmbedded = function(url) {
 		return url + '&embedded=true#start=embed';
 	}
 
-	awtble.comments = {};     // app-specific stuff
+	atjs.comments = {};     // app-specific stuff
 
-	awtble.comments.setComment = function(commentUrl, prefill) {
+	atjs.comments.setComment = function(commentUrl, prefill) {
 		this.commentUrl = commentUrl;
 		this.commentPrefill = prefill;
 	};
 
-	awtble.comments.makeCommentDialog = function(buttonTitle, dialogTitle) {
+	atjs.comments.makeCommentDialog = function(buttonTitle, dialogTitle) {
 		this.$container.before($('<div/>', {id:"commentDialog", style: "display:none;", title:dialogTitle}));
 		$('#commentDialog').dialog({
 			autoOpen:false, 
@@ -142,7 +142,7 @@
 			var uniqueId = $(this).parents('.wrapper').data('z');
 
 			// Add prefill information to the source
-			var src = awtble.commentUrl + '?' + this.commentPrefill + '=' + uniqueId;
+			var src = atjs.commentUrl + '?' + this.commentPrefill + '=' + uniqueId;
 			var iframe = $('<iframe/>', {id:'commentIframe', src:this.commentUrl, src:src, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'});
 			$("#commentDialog").append(iframe);
 			$('#commentDialog').dialog("open");
@@ -150,10 +150,10 @@
 
 	};
 
-	awtble.parentMain = awtble.main;
+	atjs.parentStart = atjs.start;
 
-	awtble.main = function (params) {
-		awtble.parentMain(params);   // Let it set up as normal
+	atjs.main = function (params) {
+		atjs.parentStart(params);   // Let it set up as normal
 		this.controllerDefinitions = {};
 
 		var form = this.url.urlPrefillEmbed(params.formUrl, params.prefill);
@@ -172,15 +172,15 @@
 			.attr('placeholder', "Type to filter by Student");
 	};
 
-	awtble.parentUpdate = awtble.update;
+	atjs.parentUpdate = atjs.update;
 
-	awtble.update = function () {
+	atjs.update = function () {
 		this.comments.makeCommentDialog('New Comment', "Enter a new comment");
 		this.parentUpdate();
 	};
 
 
-}(this.awtble));
+}(this.atjs));
 
 
 

@@ -28,31 +28,31 @@
 
 */
 
-this.awtble = {};
+this.atjs = {};
 
-(function (awtble) {
+(function (atjs) {
     /*
 		Called at the start      
     */
-	awtble.app = function () {
-		awtble.$sidebar = $('#sidebar');
-		awtble.$title = $('h4.sites-embed-title');
-		awtble.$topContainer = $('#topContainer');
-		awtble.$container = $('#middleContainer');
-		awtble.$count = $('#middleContainer > .count');
-		awtble.$controllers = $('#controlersPanel');
-		awtble.$table = awtble.$container.find('.google-visualization-table-table');
-		awtble.$tableBody = awtble.$table.find('tbody');
-		awtble.$tableRows = awtble.$tableBody.find('tr');
-		awtble.$tableSelector = '.google-visualization-table-table'; 
+	atjs.app = function () {
+		atjs.$sidebar = $('#sidebar');
+		atjs.$title = $('h4.sites-embed-title');
+		atjs.$topContainer = $('#topContainer');
+		atjs.$container = $('#middleContainer');
+		atjs.$count = $('#middleContainer > .count');
+		atjs.$controllers = $('#controlersPanel');
+		atjs.$table = atjs.$container.find('.google-visualization-table-table');
+		atjs.$tableBody = atjs.$table.find('tbody');
+		atjs.$tableRows = atjs.$tableBody.find('tr');
+		atjs.$tableSelector = '.google-visualization-table-table'; 
 	};
 
-	awtble.controllers = {};  // routines that have to do with the controllers
+	atjs.controllers = {};  // routines that have to do with the controllers
 
 	/*
 		@param {id} The string id of the changed item, i.e. "controller0"
 	*/
-	awtble.didChange = function(id) {
+	atjs.didChange = function(id) {
 		// does nothing, override me
 	};
 
@@ -61,7 +61,7 @@ this.awtble = {};
 		Also called upon load (via main)
 		It basically looks at the template information and adjusts the content accordingly
 	*/ 
-	awtble.update = function() {
+	atjs.update = function() {
 
 		$('*[column]').each(function (item) { 
 			var value = $(this).parents('.wrapper').data( $(this).attr('column') );
@@ -190,45 +190,45 @@ this.awtble = {};
 
 		This gets called after loading, you should set up your application-specific stuff here
 	*/
-	awtble.main = function (params) {
-		awtble.params = params;
+	atjs.start = function (params) {
+		atjs.params = params;
 
-		if (awtble.params.hasOwnProperty('debug') && awtble.params.debug) {
+		if (atjs.params.hasOwnProperty('debug') && atjs.params.debug) {
 			debugger;
 		}
 
-		awtble.update();
+		atjs.update();
 
 		// Add observers so that we can run update whenever the data in the table changes.
 		// The selectors and if statements make it only run once
 
 		// Add an observer to update text whene
 
-		awtble.$container
+		atjs.$container
 			.observe('childList subtree', function(record) {
 				if (record.addedNodes && record.addedNodes.length == 1 && record.target.className == 'google-visualization-table') {
 					if (record.previousSibling == null) {
-						awtble.update();
+						atjs.update();
 					}
 				}
 			});
 
-		awtble.$controllers
+		atjs.$controllers
 			.observe('childList subtree', function(record) {
 				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 					var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
-					if (awtble.controllerDefinitions.hasOwnProperty(thisId)) {
-						awtble.didChange(thisId);
+					if (atjs.controllerDefinitions.hasOwnProperty(thisId)) {
+						atjs.didChange(thisId);
 					}
 				}
 		});
 
 		// Clicking on the triangle (actually anywhere in the header) causes an update that isn't triggered by above
-		$(document).on('click', 'th.google-visualization-table-th', function () {awtble.update()});
+		$(document).on('click', 'th.google-visualization-table-th', function () {atjs.update()});
 
 	}
 
 
-}(this.awtble));
+}(this.atjs));
 
-this.awtble.app();
+this.atjs.app();
