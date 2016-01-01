@@ -85,11 +85,16 @@ function doGet(e) {
   var sheet = sps.getSheetByName(sheetName);
   var range = sheet.getRange(a1Notation);
   var data = range.getValues();
-  var headers = data[0];
-  data = data.splice(1).sort(function (a, b) {
-    return a[0] > b[0] ? -1 : a[0] < b[0] ? 1 : 0;
-  });
-  data.splice(0, 0, headers);  // insert back into it
+  // sort the data if needed
+  if (SORT && SORT.hasOwnProperty('index')) {
+    if (SORT.index) index = SORT.index;
+    else index = 0;
+    var headers = data[0];
+    data = data.splice(1).sort(function (a, b) {
+      return a[index] > b[index] ? -1 : a[index] < b[index] ? 1 : 0;
+    });
+    data.splice(0, 0, headers);  // insert back into it
+  }
   var dt = {cols:[], rows:[]};
   var permissionsCol = null;
   var firstCol = range.getColumn();
