@@ -56,6 +56,10 @@ this.atjs = {};
 		// does nothing, override me
 	};
 
+	atjs.util.getColumnData = function($item, column) {
+		return $item.parents('.wrapper').data( $item.attr('column') );
+	}
+
 	/* 
 		This gets called every time something changes in the awesometable.
 		Also called upon load (via main)
@@ -64,7 +68,7 @@ this.atjs = {};
 	atjs.update = function() {
 
 		$('*[column]').each(function (item) { 
-			var value = $(this).parents('.wrapper').data( $(this).attr('column') );
+			var value = atjs.util.getColumnData($(this), $(this).attr('column'));
 			if ($(this).attr('attr')) {
 				var attr = $(this).attr('attr');
 				$(this).attr(attr, value);
@@ -158,35 +162,38 @@ this.atjs = {};
 		});
 		
 		$('*[stringified]').each(function (item) { 
-			var value = $(this).html();
+			var column = $(this).attr('column');
+			if (!column) {
+				console.log('No column attribute used with stringify... fail')
+				return;
+			}
+			var value = atjs.util.getColumnData($(this), column);
 			$(this).html("");
-			if ($(this).attr('stringified') === "") {
-				// make a new div that will replace this one
-				//var comments = JSON.parse(value);
-				$me = $(this);
-				if (value instanceof Array) {
-					if (value.length == 0) {
-						$me.html("");
-					} else {
-						// We have to convert these specific html entitied otherwise the template won't recognize
-						// Or we could tell underscore templating to use a different pattern recognizer
-						// TODO: Make this less ugly
-						template = _.template($me.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"));
-						$me.html("");
-						value.forEach(function (item, index, arr) {
-							$(template(item)).appendTo($me);
-						});
-					}
+			// make a new div that will replace this one
+			//var comments = JSON.parse(value);
+			$me = $(this);
+			if (value instanceof Array) {
+				if (value.length == 0) {
+					$me.html("");
 				} else {
-					if (value === "" || value == "#ERROR!") {
-						$me.html('Warning: Problem that needs to be fixed by admin. Comments can be added but will not be displayed here (until fixed).');
-					} else {
-						if (value == "#ERROR!") {
-							$me.html("");
-						}
-						console.log("Array or empty string expected! What are you?:");
-						console.log(value);
+					// We have to convert these specific html entitied otherwise the template won't recognize
+					// Or we could tell underscore templating to use a different pattern recognizer
+					// TODO: Make this less ugly
+					template = _.template($me.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"));
+					$me.html("");
+					value.forEach(function (item, index, arr) {
+						$(template(item)).appendTo($me);
+					});
+				}
+			} else {
+				if (value === "" || value == "#ERROR!") {
+					$me.html('Warning: Problem that needs to be fixed by admin. Comments can be added but will not be displayed here (until fixed).');
+				} else {
+					if (value == "#ERROR!") {
+						$me.html("");
 					}
+					console.log("Array or empty string expected! What are you?:");
+					console.log(value);
 				}
 			}
 		});
