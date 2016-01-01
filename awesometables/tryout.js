@@ -22,158 +22,166 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 
-awesometable.prototype.didChange = function(thisId) {
-	if (this.controllerDefinitions.hasOwnProperty(thisId)) {
-		this.controllers.changeDropdownControllerText(thisId, this.controllerDefinitions[thisId]);
+(function (awtble) {
+
+	awtble.controllers.didChange = function(thisId) {
+		if (this.controllerDefinitions.hasOwnProperty(thisId)) {
+			this.controllers.changeDropdownControllerText(thisId, this.controllerDefinitions[thisId]);
+		}
+	};
+
+	awtble.controllers.makeControllerLeftmost = function(controller) {
+		$(controller).detach().prependTo(this.$controllers);
+	};
+
+	awtble.controllers.changeDropdownControllerText = function(controllerId, text) {
+		$(controllerId).find('.charts-menu-button-caption').text(text);		
+	};
+
+	/*
+		@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
+	*/
+	awtble.controllers.fixDropdownControllerText = function(controllerId, text) {
+		this.controllers.changeDropdownControllerText(controllerId, text);
+		this.controllerDefinitions[controllerId] = text;
+	};
+
+	awtble.buttons = {}; // routines that have to do with making buttons
+
+	/* 
+		@param {formUrl} The bare url of the form, no extras
+		@param {buttonTitle} The Title of the button, i.e. "Add New"
+		@param {dialogTitle} The title of the dialog, i.e. "Add a New Entry"
+
+		Adds a "Add New" button at the top of the awesometable
+		Useful for linking a Google form in the frontend itself
+	*/
+	awtble.buttons.newButtonWithEmbeddedForm = function(formUrl, buttonTitle, dialogTitle) {
+		this.$topContainer.append($('<button/>', {id:'newButton', text:buttonTitle}));
+		this.$topContainer.append($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
+		$("#addNewDialog").append($('<iframe/>', {src:formUrl, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'}));
+		$('#newButton').button({icons:{primary:'ui-icon-circle-plus'}});
+		$('#addNewDialog').dialog({
+			autoOpen:false, 
+			height:700,
+			width:"90%",
+			modal:true,
+			draggable:false,
+			show:"fadeIn",
+			position: { my: 'top', at: 'top+15' },
+			close: function (event, ui) {
+				// Take out the iframe, and refresh the browswer
+				$('#addNewDialog > iframe').detach();
+				window.location.reload();
+			}
+		});
+		$('#newButton').click(function() {
+			$('#addNewDialog').dialog("open");
+		});
 	}
-};
 
-awesometable.prototype.controllers.makeControllerLeftmost = function(controller) {
-	$(controller).detach().prependTo(this.$controllers);
-};
-
-awesometable.prototype.controllers.changeDropdownControllerText = function(controllerId, text) {
-	$(controllerId).find('.charts-menu-button-caption').text(text);		
-};
-
-/*
-	@param {controllerId} The string id (not the jquery selector) of the controller, i.e. 'controller0'
-*/
-awesometable.prototype.controllers.fixDropdownControllerText = function(controllerId, text) {
-	this.controllers.changeDropdownControllerText(controllerId, text);
-	this.controllerDefinitions[controllerId] = text;
-};
-
-awesometable.prototype.buttons = {}; // routines that have to do with making buttons
-
-/* 
-	@param {formUrl} The bare url of the form, no extras
-	@param {buttonTitle} The Title of the button, i.e. "Add New"
-	@param {dialogTitle} The title of the dialog, i.e. "Add a New Entry"
-
-	Adds a "Add New" button at the top of the awesometable
-	Useful for linking a Google form in the frontend itself
-*/
-awesometable.prototype.buttons.newButtonWithEmbeddedForm = function(formUrl, buttonTitle, dialogTitle) {
-	this.$topContainer.append($('<button/>', {id:'newButton', text:buttonTitle}));
-	this.$topContainer.append($('<div/>', {id:"addNewDialog", style: "display:none;", title:dialogTitle}));
-	$("#addNewDialog").append($('<iframe/>', {src:formUrl, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'}));
-	$('#newButton').button({icons:{primary:'ui-icon-circle-plus'}});
-	$('#addNewDialog').dialog({
-		autoOpen:false, 
-		height:700,
-		width:"90%",
-		modal:true,
-		draggable:false,
-		show:"fadeIn",
-		position: { my: 'top', at: 'top+15' },
-		close: function (event, ui) {
-			// Take out the iframe, and refresh the browswer
-			$('#addNewDialog > iframe').detach();
+	awtble.buttons.makeReloadButton = function() {
+		this.$topContainer.append($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
+		$('#refreshButton').click(function () {
 			window.location.reload();
-		}
-	});
-	$('#newButton').click(function() {
-		$('#addNewDialog').dialog("open");
-	});
-}
+		});
+	}
 
-awesometable.prototype.buttons.makeReloadButton = function() {
-	this.$topContainer.append($('<button/>', {id:'refreshButton', text:"Refresh"}).button({icons:{primary:'ui-icon-refresh'}}));	
-	$('#refreshButton').click(function () {
-		window.location.reload();
-	});
-}
+	awtble.url = {};   // routines that help us with URLS
 
-awesometable.prototype.url = {};   // routines that help us with URLS
+	awtble.url.urlPrefillEmbed = function(url, prefill) {
+		return this.url.makeEmbedded(url +'/viewform?' + this.url.extractPrefill(prefill));
+	}
 
-awesometable.prototype.url.urlPrefillEmbed = function(url, prefill) {
-	return this.url.makeEmbedded(url +'/viewform?' + this.url.extractPrefill(prefill));
-}
+	/* 
+		Accept the url from prefill provided by Google and reduce it to the minimal
+	*/
+	awtble.url.extractPrefill = function(prefillUrl) {
+		// Take the raw prefill Url and extract just the bits we want
+		// So we have a 'prefillPhrase'
+		return prefillUrl.match(/entry.*$/)[0].split('&').reduce(function (obj, value, index) {
+			s = value.split('=');
+			if (s.length>1) obj.push(s);
+			return obj;
+		}, []).map(function (v, i, arr) {
+			return v.join('=');
+		}).join('&');
+	}
 
-/* 
-	Accept the url from prefill provided by Google and reduce it to the minimal
-*/
-awesometable.prototype.url.extractPrefill = function(prefillUrl) {
-	// Take the raw prefill Url and extract just the bits we want
-	// So we have a 'prefillPhrase'
-	return prefillUrl.match(/entry.*$/)[0].split('&').reduce(function (obj, value, index) {
-		s = value.split('=');
-		if (s.length>1) obj.push(s);
-		return obj;
-	}, []).map(function (v, i, arr) {
-		return v.join('=');
-	}).join('&');
-}
+	/* 
+		Make an url a embedded one
+	*/
+	awtble.url.makeEmbedded = function(url) {
+		return url + '&embedded=true#start=embed';
+	}
 
-/* 
-	Make an url a embedded one
-*/
-awesometable.prototype.url.makeEmbedded = function(url) {
-	return url + '&embedded=true#start=embed';
-}
+	awtble.comments = {};     // app-specific stuff
 
-awesometable.prototype.comments = {};     // app-specific stuff
+	awtble.comments.setComment = function(commentUrl, prefill) {
+		this.commentUrl = commentUrl;
+		this.commentPrefill = prefill;
+	};
 
-awesometable.prototype.comments.setComment = function(commentUrl, prefill) {
-	this.commentUrl = commentUrl;
-	this.commentPrefill = prefill;
-};
+	awtble.comments.makeCommentDialog = function(buttonTitle, dialogTitle) {
+		this.$container.before($('<div/>', {id:"commentDialog", style: "display:none;", title:dialogTitle}));
+		$('#commentDialog').dialog({
+			autoOpen:false, 
+			height:700, 
+			width:"90%", 
+			modal:true, 
+			draggable:false,
+			show:"fadeIn",
+			position: { my: 'top', at: 'top+15' },
+			close: function (event, ui) {
+				$('#commentDialog > iframe').detach();
+				window.location.reload();
+			}
+		});
 
-awesometable.prototype.comments.makeCommentDialog = function(buttonTitle, dialogTitle) {
-	var me = this;
-	me.$container.before($('<div/>', {id:"commentDialog", style: "display:none;", title:dialogTitle}));
-	$('#commentDialog').dialog({
-		autoOpen:false, 
-		height:700, 
-		width:"90%", 
-		modal:true, 
-		draggable:false,
-		show:"fadeIn",
-		position: { my: 'top', at: 'top+15' },
-		close: function (event, ui) {
-			$('#commentDialog > iframe').detach();
-			window.location.reload();
-		}
-	});
+		$('button.comment-button').on('click', function (e) { // button.comment-button
+			var uniqueId = $(this).parents('.wrapper').data('z');
 
-	$('button.comment-button').on('click', function (e) { // button.comment-button
-		var uniqueId = $(this).parents('.wrapper').data('z');
+			// Add prefill information to the source
+			var src = awtble.commentUrl + '?' + this.commentPrefill + '=' + uniqueId;
+			var iframe = $('<iframe/>', {id:'commentIframe', src:this.commentUrl, src:src, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'});
+			$("#commentDialog").append(iframe);
+			$('#commentDialog').dialog("open");
+		});
 
-		// Add prefill information to the source
-		var src = me.commentUrl + '?' + this.commentPrefill + '=' + uniqueId;
-		var iframe = $('<iframe/>', {id:'commentIframe', src:this.commentUrl, src:src, height:"100%", width:"100%", frameborder: 0, marginheight:0, text:'Loading…'});
-		$("#commentDialog").append(iframe);
-		$('#commentDialog').dialog("open");
-	});
+	};
 
-};
+	//awtble.parentMain = awtble.main;
 
-awesometable.prototype.main = function (params) {
-	this.prototype.main.call(params);
-	this.controllerDefinitions = {};
+	awtble.main = function (params) {
+		//awtble.parentMain(params);   // Let it set up as normal
+		this.prototype.main.call(params);
+		this.controllerDefinitions = {};
 
-	var form = this.url.urlPrefillEmbed(params.formUrl, params.prefill);
+		var form = this.url.urlPrefillEmbed(params.formUrl, params.prefill);
 
-	this.comments.setComment(params.commentUrl, params.commentPrefill);
-	this.buttons.newButtonWithEmbeddedForm(form, 'Add New', "Enter a new item");
-	this.buttons.makeReloadButton();
+		this.comments.setComment(params.commentUrl, params.commentPrefill);
+		this.buttons.newButtonWithEmbeddedForm(form, 'Add New', "Enter a new item");
+		this.buttons.makeReloadButton();
 
-	this.controllers.fixDropdownControllerText('#controlers0', 'Filter by kind');
-	this.controllers.fixDropdownControllerText('#controlers2', 'Filter by grade');
-	this.controllers.makeControllerLeftmost('#controlers1');
+		this.controllers.fixDropdownControllerText('#controlers0', 'Filter by kind');
+		this.controllers.fixDropdownControllerText('#controlers2', 'Filter by grade');
+		this.controllers.makeControllerLeftmost('#controlers1');
 
-	// This is just a one-time operation:
-	$('#controlers1').find('input')
-		.addClass('studentSearch')
-		.attr('placeholder', "Type to filter by Student");
-};
+		// This is just a one-time operation:
+		$('#controlers1').find('input')
+			.addClass('studentSearch')
+			.attr('placeholder', "Type to filter by Student");
+	};
 
-awesometable.prototype.update = function () {
-	this.comments.makeCommentDialog('New Comment', "Enter a new comment");
-	this.parentUpdate();
-};
+	awtble.parentUpdate = awtble.update;
 
+	awtble.update = function () {
+		this.comments.makeCommentDialog('New Comment', "Enter a new comment");
+		this.parentUpdate();
+	};
+
+
+}(this.awtble));
 
 
 
