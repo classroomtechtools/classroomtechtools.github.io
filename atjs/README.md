@@ -57,7 +57,7 @@ https://classroomtechtools.github.io/atjs/atjs.js
 
 Further, if you want to have some very specific behaviour that you would like to add to your Awesome Table, for example, adding a click handler to a button that opens a dialog box for example, you can write an javascript file that is hosted by a service such as Github Pages, and include that. That file will have to be written with a specific template, however, so we have provided a [starter file](https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/atjs/starter.js) to get you started. (Some programming experience is useful.)
 
-Optionally, you can define a `params` object filled with inforamtion that is passed to the main() function.
+Optionally, you can define a `params` object filled with inforamtion that is passed to the atjs.start() function.
 
 #####Get started
 Here is an example of a `<script>` header content that will use the starter file, and will exit to the browser's debugger.
@@ -82,8 +82,6 @@ You can use the `onlyif="x=XXX"` to tell it to display "only if" the column x is
 You can use `classif="klass x=XXX"` to tell it to add the class 'klass' if column x is equal to XXX.
 
 You can use the `paragraphs` attribute to flag the fact that the contents of this tag are a sequence of paragraphs (denoted by return characters), and to format it with a `<p>` tag.
-
-Special use is the "stringified" attribute flag. That allows you to define a cell in your sheet that actually is just a stringified representation of a range (or query), and the contents allow you to define a template within a template.
 
 Here is some markup that uses all of these features.
 
@@ -122,13 +120,3 @@ Here is some markup that uses all of these features.
 </div>
 </div>
 ```
-
-##Reference
-
-Provided for your convenience.
-
-####Urls for the files are:
-
-* http://classroomtechtools.github.io/awsometables/awtble.js
-* http://classroomtechtools.github.io/awsometables/tryout.js
-* http://classroomtechtools.github.io/awsometables/tryout.css
