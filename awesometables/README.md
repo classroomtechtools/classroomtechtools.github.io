@@ -1,16 +1,16 @@
-#Code for Awesometables…
+#atjs for Awesome Table
 
 …by [classroomtechtools.com](http://classroomtechtools.com)
 
-If you are not familiar with [awesometables](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this is a tool that requires awesometables and its proxy and templating features, that can turn any Google Site into a full-fledge web app.
+If you are not familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this is a tool that requires Awesome Table and its proxy and templating features, that can turn any Google Site into a full-fledge web app.
 
-If you are already familiar with [awesometables](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this just gives new meaning to the `<script>` information that is defined in the template of your awesometable. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an externally-defined javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our awesometable to do whatever we want. If that doesn't entice you, just by using the proxy, you gain lots of features anyway.
+If you are already familiar with [Awesome Table](https://sites.google.com/site/scriptsexamples/available-web-apps/awesome-tables), this just gives new meaning to the `<script>` information that is defined in the template of your awesometable. Instead of writing the javascript right there in the Google Sheet, we are able to write javascript in an externally-defined javascript file. We are also able to load dependencies. In other words, we can bring in front-end development tools and extend our awesometable to do whatever we want. If that doesn't entice you, just by using the proxy, you gain lots of features anyway.
 
 The code is released into the public domain, "as is".
 
 ##Instructions:
 
-* Create a site with awesometables, with templates, the usual way
+* Create a site with Awesome Table, using the template and script feature, the usual way
 * Template area _must_ have a `<script>` header
 * Configure the awesometable to use the proxy, provided below (copy and paste, and deploy as web app)
 
@@ -38,6 +38,19 @@ If your json object has a `load` object defined, it must be an array of strings,
 ```
 
 and follow the instructions on their website to get really great-looking icons.
+
+For your reference, if you do not define any content in the `<script>` tag, this is the default behaviour. It loads up jquery and other common tools that are used, including underscore. The jquery-observe library is required in the 
+
+{
+  "load": [
+    "https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/2.1.4\/jquery.min.js",
+    "https:\/\/ajax.googleapis.com\/ajax\/libs\/jqueryui\/1.11.4\/jquery-ui.min.js",
+    "https:\/\/brainysmurf.github.io\/jquery-observe\/jquery-observe.js",
+    "https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/underscore.js\/1.8.3\/underscore-min.js",
+    "https:\/\/classroomtechtools.github.io\/awesometables\/awtble.css",
+    "https:\/\/classroomtechtools.github.io\/awesometables\/awtble.js"
+  ]
+}
 
 ####Application-specific logic
 
