@@ -68,8 +68,13 @@ this.atjs = {};
 		It basically looks at the template information and adjusts the content accordingly
 	*/ 
 	atjs.update = function() {
+
+		// column="x" allows you to put values in the template without referring to the long-winded
+		// {{Name of Column}} (which can also change)
+		// Does nothing, however, if the value is an array
 		$('*[column]').each(function (item) { 
 			var value = atjs.utils.getColumnData($(this), $(this).attr('column'));
+			if (value instanceof Array) return;
 			if ($(this).attr('attr')) {
 				var attr = $(this).attr('attr');
 				$(this).attr(attr, value);
@@ -87,6 +92,7 @@ this.atjs = {};
 			}
 		});
 
+		// attribute that sets display to none if the criteria is not satfisfied
 		$('*[onlyif]').each(function (item) {
 			var value = $(this).attr('onlyif');
 			if (value.indexOf('=') != -1) {
@@ -103,6 +109,7 @@ this.atjs = {};
 			}
 		});
 
+		// add a class to this item given criteria
 		$('*[classif]').each(function (item) {
 			var value = $(this).attr('classif');
 			var split = value.split(' ');
@@ -118,6 +125,7 @@ this.atjs = {};
 			}
 		});
 
+		// re-format them in order to get paragraphs instead of return characters
 		$('*[paragraphs]').each(function (item) {
 			var value = $(this).html();
 			$(this).html("");
