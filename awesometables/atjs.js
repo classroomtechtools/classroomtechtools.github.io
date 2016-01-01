@@ -75,6 +75,7 @@ this.atjs = {};
 				// TODO: less button (if needed?)
 				var attrValue = $(this).attr('paragraphs');
 				var more = false;
+				var howMany = 3;
 				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
 					more = true;
 					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
