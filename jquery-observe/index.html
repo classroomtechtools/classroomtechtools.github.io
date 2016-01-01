@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Observe</title>
+
+	<script type='text/javascript' src='http://code.jquery.com/jquery.min.js'></script>
+
+	<script type="text/javascript" src="lib/jquery-path.js"></script>
+	<script type="text/javascript" src="lib/jquery-branch.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			window.fn = function(record) {
+				console.log('Attribute changed on #header ', this, record);
+			}
+
+			$('#header')
+				.observe('attributes', fn)
+				.observe('childlist', 'ul li:first', function(record) {
+					console.log('DOM changed: element matching "ul li:first" added/removed ', this, record);
+				});
+
+			$('#footer').observe('characterdata subtree', function(record) {
+				console.log('Character data changed on #footer: ', this, record);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id='content' class='content'>
+		<div id='header'>
+			<ul id='list'>
+				<li id='list-1'>Item 1</li>
+				<li id='list-2'>Item <span>2</span></li>
+			</ul>
+		</div>
+		<div id='footer'>Footer</div>
+	</div>
+
+	<button onclick='$("#list-1").remove()'>Remove item 1</button>
+	<button onclick='$("#list-2").remove()'>Remove item 2</button>
+	<button onclick='$("<li>Item</li>").appendTo("#list")'>Add item</button>
+	<button onclick='$("ul li:first").html(Date.now())'>Randomize first item</button>
+	<button onclick='$("#header").attr("data-rand", Date.now())'>Header attribute</button>
+	<button onclick='$("#footer").contents()[0].nodeValue = Date.now()'>Change footer data</button>
+</body>
+</html>
