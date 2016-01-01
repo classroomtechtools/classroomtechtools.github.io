@@ -170,7 +170,6 @@ this.atjs = {};
 				return;
 			}
 			var value = atjs.utils.getColumnData($(this), column);
-			$(this).html("");
 			// make a new div that will replace this one
 			//var comments = JSON.parse(value);
 			$me = $(this);
