@@ -152,7 +152,7 @@
 
 	atjs.parentStart = atjs.start;
 
-	atjs.main = function (params) {
+	atjs.start = function (params) {
 		atjs.parentStart(params);   // Let it set up as normal
 		atjs.controllerDefinitions = {};
 
