@@ -200,8 +200,8 @@
 					// TODO: Make this less ugly
 					template = _.template($me.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"));
 					$me.html("");
-					value.forEach(function (item, index, arr) {
-						$(template(item)).appendTo($me);
+					value.forEach(function (thisItem, thisIndex, arr) {
+						$(template(thisItem)).appendTo($me);
 					});
 				}
 			} else {
