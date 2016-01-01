@@ -74,16 +74,15 @@ this.atjs = {};
 				// can define how many 
 				// TODO: less button (if needed?)
 				var attrValue = $(this).attr('paragraphs');
-				var howMany = 3;
 				var more = false;
-				console.log(attrValue);
 				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
 					more = true;
 					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
-					if (!isNaN(stripNonDigits)) {
+					if (isNaN(stripNonDigits)) {
+						howMany = 3;
+					else {
 						howMany = parseInt(stripNonDigits);
 					}
-					console.log(howMany);
 				}
 
 				var newValue = $("<div/>");
