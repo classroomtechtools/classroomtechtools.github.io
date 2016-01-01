@@ -62,7 +62,7 @@ this.atjs = {};
 
 	atjs.utils.getColumnData = function($item, column) {
 		return $item.parents('.wrapper').data( $item.attr('column') );
-	}
+	};
 
 	/* 
 		This gets called every time something changes in the awesometable.
@@ -207,7 +207,7 @@ this.atjs = {};
 		// Clicking on the triangle (actually anywhere in the header) causes an update that isn't triggered by above
 		$(document).on('click', 'th.google-visualization-table-th', function () {atjs.update()});
 
-	}
+	};
 
 
 }(this.atjs));
