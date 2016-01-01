@@ -43,10 +43,15 @@
 	atjs.parentUpdate = atjs.update;
 
 	atjs.update = function () {
-		atjs.parentUpdate();
+		atjs.parentUpdate();  // calls the default handler
 
 		// Do whatever else you need to do here.
 	};
+
+	atjs.controllers.didChange = function (id) {
+		// Lets you know if content of the controllers have changed
+		// No need to call the default handler
+	}
 
 
 }(this.atjs));

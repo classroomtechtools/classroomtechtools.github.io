@@ -68,79 +68,6 @@ this.atjs = {};
 			if ($(this).attr('attr')) {
 				var attr = $(this).attr('attr');
 				$(this).attr(attr, value);
-			} else if ($(this).attr('paragraphs') != undefined) {
-				// convert value to html-friendly paragraphs
-				// with more and less button if there are a large amount of them
-				// can define how many 
-				// TODO: less button (if needed?)
-				var attrValue = $(this).attr('paragraphs');
-				var more = false;
-				var howMany = 3;
-				if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
-					more = true;
-					var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
-					if (!stripNonDigits || isNaN(stripNonDigits)) {
-						howMany = 3;
-					} else {
-						howMany = parseInt(stripNonDigits);
-					}
-				}
-
-				var newValue = $("<div/>");
-				if (more && value.split('\n').length > howMany) {
-					value.split('\n').forEach(function (iValue, ii, aa) {
-						if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii < howMany ? ' first' : '')}));
-					});
-					$more = $('<div/>', {class: "more"});
-					//$less = $('<div/>', {class: "less"});
-					$more.append($('<button/>', {class: "toggle", text:"More"}).button());
-					newValue.find('p.first:last').addClass('first').append($more);
-					//newValue.find('p:last').addClass('last').append($less);
-
-					$(this).append(newValue);
-
-					// Hide all of them, except those labeled as first
-					newValue.find('p').hide();
-					newValue.find('p.first').show();
-					newValue.find('.toggle').click(function () {
-						newValue.find('.more').toggle();
-						newValue.find('p:not(.first,.toggle)').slideToggle();
-					});
-				} else {
-					value.split('\n').forEach(function (iValue, ii, aa) {
-						newValue.append($('<p/>', {text:iValue, class:'paragraph'}));
-					});
-					$(this).append(newValue);
-				}
-			} else if ($(this).attr('stringified') === "") {
-				// make a new div that will replace this one
-				//var comments = JSON.parse(value);
-				$me = $(this);
-				if (value instanceof Array) {
-					if (value.length == 0) {
-						$me.html("");
-					} else {
-						// We have to convert these specific html entitied otherwise the template won't recognize
-						// Or we could tell underscore templating to use a different pattern recognizer
-						// TODO: Make this less ugly
-						template = _.template($me.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"));
-						$me.html("");
-						value.forEach(function (item, index, arr) {
-							$(template(item)).appendTo($me);
-						});
-					}
-				} else {
-					if (value === "" || value == "#ERROR!") {
-						$me.html('Warning: Problem that needs to be fixed by admin. Comments can be added but will not be displayed here (until fixed).');
-					} else {
-						if (value == "#ERROR!") {
-							$me.html("");
-						}
-						console.log("Array or empty string expected! What are you?:");
-						console.log(value);
-					}
-				}
-
 			} else {
 				switch ($(this).attr('at') && $(this).attr('at').toLowerCase()) {
 					case 'after': 
@@ -185,6 +112,82 @@ this.atjs = {};
 				$(this).addClass(klass);
 			}
 		});
+
+		$('*[paragraphs]').each(function (item) {
+			var value = $(this).html();
+			$(this).html("");
+			var attrValue = $(this).attr('paragraphs');
+			var more = false;
+			var howMany = 3;
+			if (attrValue && attrValue.replace(/[^a-zA-Z]/g, '').toLowerCase() == 'more') {
+				more = true;
+				var stripNonDigits = attrValue.replace(/[^0-9]/g, '');
+				if (!stripNonDigits || isNaN(stripNonDigits)) {
+					howMany = 3;
+				} else {
+					howMany = parseInt(stripNonDigits);
+				}
+			}
+
+			var newValue = $("<div/>");
+			if (more && value.split('\n').length > howMany) {
+				value.split('\n').forEach(function (iValue, ii, aa) {
+					if (newValue) newValue.append($('<p/>', {text:iValue, class:'paragraph' + (ii < howMany ? ' first' : '')}));
+				});
+				$more = $('<div/>', {class: "more"});
+				//$less = $('<div/>', {class: "less"});
+				$more.append($('<button/>', {class: "toggle", text:"More"}).button());
+				newValue.find('p.first:last').addClass('first').append($more);
+				//newValue.find('p:last').addClass('last').append($less);
+
+				$(this).append(newValue);
+
+				// Hide all of them, except those labeled as first
+				newValue.find('p').hide();
+				newValue.find('p.first').show();
+				newValue.find('.toggle').click(function () {
+					newValue.find('.more').toggle();
+					newValue.find('p:not(.first,.toggle)').slideToggle();
+				});
+			} else {
+				value.split('\n').forEach(function (iValue, ii, aa) {
+					newValue.append($('<p/>', {text:iValue, class:'paragraph'}));
+				});
+				$(this).append(newValue);
+			}
+		
+		$('*[stringified]').each(function (item) { 
+			var value = $(this).html();
+			$(this).html("");
+			if ($(this).attr('stringified') === "") {
+				// make a new div that will replace this one
+				//var comments = JSON.parse(value);
+				$me = $(this);
+				if (value instanceof Array) {
+					if (value.length == 0) {
+						$me.html("");
+					} else {
+						// We have to convert these specific html entitied otherwise the template won't recognize
+						// Or we could tell underscore templating to use a different pattern recognizer
+						// TODO: Make this less ugly
+						template = _.template($me.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"));
+						$me.html("");
+						value.forEach(function (item, index, arr) {
+							$(template(item)).appendTo($me);
+						});
+					}
+				} else {
+					if (value === "" || value == "#ERROR!") {
+						$me.html('Warning: Problem that needs to be fixed by admin. Comments can be added but will not be displayed here (until fixed).');
+					} else {
+						if (value == "#ERROR!") {
+							$me.html("");
+						}
+						console.log("Array or empty string expected! What are you?:");
+						console.log(value);
+					}
+				}
+			}
 	};
 
 	/*
