@@ -22,7 +22,7 @@ The code is released into the public domain, "as is".
 
 You need to put the contents of the link below into your domain as a web app, and deploy. None of the below will work unless this is done:
 
-* https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/awesometables/proxy.gs
+* https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/atjs/proxy.gs
 
 The way it works is that it injects special javascript that gives the `<script>` content of the template a whole new meaning.
 
@@ -68,7 +68,7 @@ Here is an example of a `<script>` header content that will use the starter file
     "debug": true
   },
   "load": [
-    "https://classroomtechtools.github.io/awesometables/starter.js"
+    "https://classroomtechtools.github.io/atjs/starter.js"
   ]
 }
 ```
