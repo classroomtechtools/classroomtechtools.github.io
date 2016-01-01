@@ -24,8 +24,6 @@ You need to put the contents of the link below into your domain as a web app, an
 
 * https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/atjs/proxy.gs
 
-The way it works is that it injects special javascript that gives the `<script>` content of the template a whole new meaning.
-
 ###Contents of `<script>` in Template sheet:
 
 It can be left blank, in which case you get the default behaviour, which may be all that you want, but in any case the template must define the `<script>` header and have no content. It can optionally have content, but has to be a valid json object. From now on, we will refer to this content as "the json object". There are two properties ("load", and "params") that has specific meaning, see below. (Or just skip to the "Template" section to view the default behaviours you gain.)
@@ -72,6 +70,48 @@ Here is an example of a `<script>` header content that will use the starter file
   ]
 }
 ```
+
+####Nuts 'n' Bolts
+The proxy, in addition to retrieving the information from the spreadsheet, is responsible for setting up the page to make it easy to design a web app. That involves two things:
+
+* It wraps a wrapper around each row's html, and places the content of each column into data- attribute. 
+* It reads in any content in the `<script>` section of the template and injects javascript code into the rendered page so that it imports the declared javascript code
+* The injected code loads up the declared javascript and css files, waits until the DOM is ready, and then launches the app's `start` function.
+
+Basically, it gives the `<script>` content of the template a whole new meaning.
+
+For your reference, the code that gets executed as described above is the following:
+
+```js
+(function() {
+    
+    [...].forEach(function(src, index, arr) {
+      var tag = undefined;
+      if (src.endsWith('.js')) {
+        tag = document.createElement('script');
+        tag.src = src;
+        tag.async = false;
+      } else if (src.endsWith('.css')) {
+        tag = document.createElement('link');
+        tag.rel = "stylesheet";
+        tag.href = src;
+      }
+      if (index === (arr.length-1)) {
+          tag.onload = function () {
+              $(function () {
+                atjs.start(...);
+              });
+          };
+      }
+
+      document.head.appendChild(tag);
+
+    });
+
+})();
+```
+
+The first ellipsis (...) is replaced by the external javascript and css files, specified in the `load` property. The second elipsis is reaplced by the contents of the `params` property.
 
 ###Template
 
