@@ -52,7 +52,7 @@ this.atjs = {};
 	/*
 		@param {id} The string id of the changed item, i.e. "controller0"
 	*/
-	atjs.didChange = function(id) {
+	atjs.controllers.didChange = function(id) {
 		// does nothing, override me
 	};
 
