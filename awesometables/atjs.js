@@ -155,6 +155,7 @@ this.atjs = {};
 				});
 				$(this).append(newValue);
 			}
+		});
 		
 		$('*[stringified]').each(function (item) { 
 			var value = $(this).html();
