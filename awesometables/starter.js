@@ -26,27 +26,27 @@
 	Use this to add custom application-specific logic to your awesometable
 */
 
-(function (awtble) {
+(function (atjs) {
 
 	// Save the main function in a different variable, to be called later
 	// ahem, "cheap inheritance"
 
-	awtble.parentMain = awtble.main;
+	atjs.parentMain = atjs.main;
 
-	awtble.main = function (params) {
-		awtble.parentMain(params);   // Let awesometable load up as normal
+	atjs.main = function (params) {
+		atjs.parentMain(params);   // Let awesometable load up as normal
 
 		// Set up things as you need them to be set up, using the params object
 		// You can edit the <script> content to pass information to that params object
 	};
 
-	awtble.parentUpdate = awtble.update;
+	atjs.parentUpdate = atjs.update;
 
-	awtble.update = function () {
-		awtble.parentUpdate();
+	atjs.update = function () {
+		atjs.parentUpdate();
 
 		// Do whatever else you need to do here.
 	};
 
 
-}(this.awtble));
+}(this.atjs));
