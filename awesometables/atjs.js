@@ -217,7 +217,7 @@ this.atjs = {};
 			.observe('childList subtree', function(record) {
 				if (record.target.className == 'google-visualization-controls-categoryfilter-selected') {
 					var thisId = '#' + $(record.target).parents('.controlers-filters').get(0).id;
-					atjs.didChange(thisId);
+					atjs.controllers.didChange(thisId);
 				}
 		});
 
