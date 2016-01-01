@@ -179,6 +179,8 @@
 
 		atjs.parentUpdate();
 
+		$('button.toggle').button();  // make them jquery-ui buttons
+
 		$('*[stringified]').each(function (item) { 
 			var column = $(this).attr('column');
 			if (!column) {
