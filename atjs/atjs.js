@@ -85,7 +85,7 @@ this.atjs = {};
 						$(this).prepend(value); 
 						break;
 					default:
-						$(this).prepend(value); 
+						$(this).html(value); 
 				}
 			}
 		});
