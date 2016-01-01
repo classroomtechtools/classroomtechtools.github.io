@@ -72,7 +72,7 @@ Here is an example of a `<script>` header content that will use the starter file
 ```
 
 ####Nuts 'n' Bolts
-The proxy, in addition to retrieving the information from the spreadsheet, is responsible for setting up the page to make it easy to design a web app. That involves two things:
+The proxy, in addition to retrieving the information from the spreadsheet, is responsible for setting up the page to make it easy to design a web app. That involves the following:
 
 * It wraps a wrapper around each row's html, and places the content of each column into data- attribute. 
 * It reads in any content in the `<script>` section of the template and injects javascript code into the rendered page so that it imports the declared javascript code
@@ -111,7 +111,7 @@ For your reference, the code that gets executed as described above is the follow
 })();
 ```
 
-The first ellipsis (...) is replaced by the external javascript and css files, specified in the `load` property. The second elipsis is reaplced by the contents of the `params` property.
+The first ellipsis (...) is replaced by the external javascript and css files, specified in the `load` property. The second elipsis is replaced by the contents of the `params` property.
 
 ###Template
 
