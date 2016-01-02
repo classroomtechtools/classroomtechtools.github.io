@@ -1,6 +1,6 @@
 #atjs for Awesome Table
 
-A tool and javascript "framework" when used in conjunction with Awesome Table turns a Google Site into a full-fledged web application.
+A tool and javascript "framework" when used in conjunction with Awesome Table turns a Google Site into a full-fledged web application. See [demonstration video](https://www.youtube.com/watch?v=Bcwmzl3Io7U&feature=youtu.be).
 
 …by [Classroom Tech Tools](http://classroomtechtools.com)
 
