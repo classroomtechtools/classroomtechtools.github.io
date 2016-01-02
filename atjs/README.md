@@ -20,9 +20,11 @@ The code is released into the public domain, "as is".
 
 ###Proxy
 
-You need to put the contents of the link below into your domain as a web app, and deploy. None of the below will work unless this is done:
+You need to put the contents of the link below into your domain as a web app, and deploy. Instructions for that are available through Awesome Table, but the basic gist is to make a script, paste the text, run as "me", and deploy as a web app. You also need to set your target awesometable to use that web proxy in the advanced parameters.
 
 * https://github.com/classroomtechtools/classroomtechtools.github.io/blob/master/atjs/proxy.gs
+
+The proxy also has some other features, including the ability to sort the information by timestamp, which is really useful for a blog-like use case.
 
 ###Contents of `<script>` in Template sheet:
 
