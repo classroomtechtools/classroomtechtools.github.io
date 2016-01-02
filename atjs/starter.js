@@ -31,10 +31,10 @@
 	// Save the main function in a different variable, to be called later
 	// ahem, "cheap inheritance"
 
-	atjs.parentMain = atjs.main;
+	atjs.parentStart = atjs.start;
 
-	atjs.main = function (params) {
-		atjs.parentMain(params);   // Let awesometable load up as normal
+	atjs.start = function (params) {
+		atjs.parentStart(params);   // Let awesometable load up as normal
 
 		// Set up things as you need them to be set up, using the params object
 		// You can edit the <script> content to pass information to that params object
