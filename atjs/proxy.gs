@@ -64,11 +64,11 @@ function test_doGet() {
   var e = {};
   e.parameter = {};
   e.parameters = {};
-  e.parameter.url = "https://docs.google.com/spreadsheets/d/1E8fl0nCHPtohMVjV9pvGl1X3hP3X4wBTMuKhwb0aj7k/edit#gid=0"; // url of the spreadsheet
+  e.parameter.url = "https://docs.google.com/spreadsheets/d/1f0kyT8Rdb-45vwr3M4gK5VyC3-7PQJtk88yy1I0xXlI/edit"; // url of the spreadsheet
   e.parameter.sheet = 'Data';  // sheet with the data
-  e.parameter.range = 'A:P';  // the range in the sheet
+  e.parameter.range = 'A:Z';  // the range in the sheet
   e.parameter.templateSheet = 'Template';  // Name of the template 
-  e.parameter.templateRange = 'A1:F2';    
+  e.parameter.templateRange = 'A1:C2';    
   e.parameters.callback = 'callback';   // This does nothing
   //doGet(e);
   Logger.log(doGet(e).getContent());
@@ -144,8 +144,6 @@ function doGet(e) {
     for(var i = 0; i < templateData.length; i++) {
       var row = [], tData, jsonObj;
       for(var j = 0; j < templateData[i].length; j++) {
-        Logger.log(j.toString() + " & " + i.toString());
-
         if (i == 1) {
           // Override behaviour on second row
           if (j == 0 && tp.cols[0].label[0] !== '<') {
@@ -154,16 +152,23 @@ function doGet(e) {
           } else if (tp.cols[j].label === '<script>') {
             // On the second row, inside script definition
             try {
-              jsonObj = JSON.parse(templateData[i][j]);
-              tData = Utilities.formatString(
-                JS, 
-                jsonObj.load.join('","'), 
-                jsonObj.params ? JSON.stringify(jsonObj.params) : ""
-              );
-              row.push({v:tData});
-            } catch (e) {
-              row.push({});
+              // attempt to parse it as an object
+              jsonObj = JSON.parse(templateData[j][i]);
             }
+            catch (err) {
+              // It didn't parse as an object, so just pass it along
+              //row.push({v:templateData[i][j]});
+              jsonObj = {params: {}};   // just a plain object
+            }              
+            if (jsonObj.hasOwnProperty('autoload') && jsonObj.autoload == false) load = [];
+            else load = AUTOLOADLIBS;
+            if (jsonObj.hasOwnProperty('load') && jsonObj.load) load.push.apply(load, jsonObj.load);
+            tData = Utilities.formatString(
+              JS, 
+              load.join('","'),
+              jsonObj.hasOwnProperty("params") ? JSON.stringify(jsonObj.params) : "{}"
+            );
+            row.push({v:tData});
           } else {
             // In second row, but nothing special
             // here, want to search for {{column-x}} and replace with column names
