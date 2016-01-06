@@ -64,11 +64,11 @@ function test_doGet() {
   var e = {};
   e.parameter = {};
   e.parameters = {};
-  e.parameter.url = ""; // url of the spreadsheet
+  e.parameter.url = "https://docs.google.com/spreadsheets/d/1E8fl0nCHPtohMVjV9pvGl1X3hP3X4wBTMuKhwb0aj7k/edit#gid=0"; // url of the spreadsheet
   e.parameter.sheet = 'Data';  // sheet with the data
-  e.parameter.range = 'A:X';  // the range in the sheet
+  e.parameter.range = 'A:P';  // the range in the sheet
   e.parameter.templateSheet = 'Template';  // Name of the template 
-  e.parameter.templateRange = 'A1:B2';    
+  e.parameter.templateRange = 'A1:F2';    
   e.parameters.callback = 'callback';   // This does nothing
   //doGet(e);
   Logger.log(doGet(e).getContent());
@@ -144,21 +144,26 @@ function doGet(e) {
     for(var i = 0; i < templateData.length; i++) {
       var row = [], tData, jsonObj;
       for(var j = 0; j < templateData[i].length; j++) {
+        Logger.log(j.toString() + " & " + i.toString());
+
         if (i == 1) {
           // Override behaviour on second row
           if (j == 0 && tp.cols[0].label[0] !== '<') {
-            // On the second row, by convention the first column has to be the display column
             tData = '<div class="wrapper" '+dataAttributes.join(" ") + ' data-username="' + currentUserEmail + '">'+ templateData[1][0] +'</div>';
             row.push({v:tData});
           } else if (tp.cols[j].label === '<script>') {
             // On the second row, inside script definition
-            jsonObj = JSON.parse(templateData[j][i]);
-            tData = Utilities.formatString(
-              JS, 
-              jsonObj.load.join('","'), 
-              jsonObj.params ? JSON.stringify(jsonObj.params) : ""
-            );
-            row.push({v:tData});
+            try {
+              jsonObj = JSON.parse(templateData[i][j]);
+              tData = Utilities.formatString(
+                JS, 
+                jsonObj.load.join('","'), 
+                jsonObj.params ? JSON.stringify(jsonObj.params) : ""
+              );
+              row.push({v:tData});
+            } catch (e) {
+              row.push({});
+            }
           } else {
             // In second row, but nothing special
             // here, want to search for {{column-x}} and replace with column names
