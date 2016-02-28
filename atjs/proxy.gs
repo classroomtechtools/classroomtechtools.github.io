@@ -64,11 +64,11 @@ function test_doGet() {
   var e = {};
   e.parameter = {};
   e.parameters = {};
-  e.parameter.url = ""; // url of the spreadsheet
+  e.parameter.url = "https://docs.google.com/spreadsheets/d/1f0kyT8Rdb-45vwr3M4gK5VyC3-7PQJtk88yy1I0xXlI/edit"; // url of the spreadsheet
   e.parameter.sheet = 'Data';  // sheet with the data
-  e.parameter.range = 'A:X';  // the range in the sheet
+  e.parameter.range = 'A:Z';  // the range in the sheet
   e.parameter.templateSheet = 'Template';  // Name of the template 
-  e.parameter.templateRange = 'A1:B2';    
+  e.parameter.templateRange = 'A1:C2';    
   e.parameters.callback = 'callback';   // This does nothing
   //doGet(e);
   Logger.log(doGet(e).getContent());
@@ -147,16 +147,26 @@ function doGet(e) {
         if (i == 1) {
           // Override behaviour on second row
           if (j == 0 && tp.cols[0].label[0] !== '<') {
-            // On the second row, by convention the first column has to be the display column
             tData = '<div class="wrapper" '+dataAttributes.join(" ") + ' data-username="' + currentUserEmail + '">'+ templateData[1][0] +'</div>';
             row.push({v:tData});
           } else if (tp.cols[j].label === '<script>') {
             // On the second row, inside script definition
-            jsonObj = JSON.parse(templateData[j][i]);
+            try {
+              // attempt to parse it as an object
+              jsonObj = JSON.parse(templateData[j][i]);
+            }
+            catch (err) {
+              // It didn't parse as an object, so just pass it along
+              //row.push({v:templateData[i][j]});
+              jsonObj = {params: {}};   // just a plain object
+            }              
+            if (jsonObj.hasOwnProperty('autoload') && jsonObj.autoload == false) load = [];
+            else load = AUTOLOADLIBS;
+            if (jsonObj.hasOwnProperty('load') && jsonObj.load) load.push.apply(load, jsonObj.load);
             tData = Utilities.formatString(
               JS, 
-              jsonObj.load.join('","'), 
-              jsonObj.params ? JSON.stringify(jsonObj.params) : ""
+              load.join('","'),
+              jsonObj.hasOwnProperty("params") ? JSON.stringify(jsonObj.params) : "{}"
             );
             row.push({v:tData});
           } else {
