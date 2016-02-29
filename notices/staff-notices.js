@@ -1,4 +1,5 @@
-$(function () {
+function main () {
+    
 console.log("http://www.classroomtechtools.com");
 
 if (!$) {
