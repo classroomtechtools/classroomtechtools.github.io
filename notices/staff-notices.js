@@ -32,8 +32,8 @@ function initNotices() {
     if (!administrator) {
 
         // remove sticky, _0 it if is the first item
-        $('#field_336_0').css('display', 'none');
-        $('label[for="field_336_0"]').css('display', 'none').next().css('display', 'none');
+        $('#field_330_0').css('display', 'none');
+        $('label[for="field_330_0"]').css('display', 'none').next().css('display', 'none');
 
         titleMaxChars = 30;
         contentMaxChars = 140;
@@ -134,7 +134,7 @@ function initNotices() {
 
         // Combine the text and content into a hidden field
         var concatValue = '<strong>' + title + '</strong>: ' + content + moreLink;
-        $('#field_334').val(concatValue);
+        $('#field_328').val(concatValue);
 
         // Continue submitting form
     });
