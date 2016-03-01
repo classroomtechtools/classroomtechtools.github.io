@@ -2,10 +2,11 @@ function initNotices() {
 
     console.log("http://www.classroomtechtools.com");
 
-    if (!$) {
-        alert("Whaddya mean no jquery??");
+    if (typeof $ === 'undefined') {
+        console.log("jQuery is not loaded.");
         return;
     }
+    
     var user = $('a[href^="https://dragonnet.ssis-suzhou.net/user/profile.php?id="]').attr('href');
     if (!user) {
         alert("Alert ClassroomTechTools, problem with discovering the current user!");
