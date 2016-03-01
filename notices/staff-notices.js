@@ -16,12 +16,10 @@ function initNotices() {
     var userId = profileUrl.match(/[0-9]+$/)[0];  // last few digits at the end
     userId = parseInt(userId);
 
-    if (typeof adminUserIdList === "undefined") {
-        var adminUserIdList = [];
-    }
-
     var administrator = adminUserIdList.indexOf(userId) !== -1;
     administrator && console.log("Detected admin");
+
+    console.log(userId, adminUserIdList, administrator);
 
     var titleMaxChars, contentMaxChars, daysConsecutive;
 
