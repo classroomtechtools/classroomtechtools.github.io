@@ -1,111 +1,139 @@
 function initNotices() {
+    "use strict";
 
-    console.log("http://www.classroomtechtools.com");
+    console.log('Notices JS version 201601010245');
 
     if (typeof $ === 'undefined') {
         console.log("jQuery is not loaded.");
         return;
     }
-    
-    var user = $('a[href^="https://dragonnet.ssis-suzhou.net/user/profile.php?id="]').attr('href');
-    if (!user) {
+
+    var profileUrl = $('header .usermenu span:contains("Profile")').closest('a').attr('href');
+    if (!profileUrl) {
         alert("Alert ClassroomTechTools, problem with discovering the current user!");
         return;
     }
-    var userId = user.match(/[0-9]+$/)[0];  // last few digits at the end
-    userId = parseFloat(userId);
-    var administrator = adminUserIdList.indexOf(userId) != -1;
+    var userId = profileUrl.match(/[0-9]+$/)[0];  // last few digits at the end
+    userId = parseInt(userId);
+
+    if (typeof adminUserIdList === "undefined") {
+        var adminUserIdList = [];
+    }
+
+    var administrator = adminUserIdList.indexOf(userId) !== -1;
     administrator && console.log("Detected admin");
 
-    var titleWC, contentWC, daysConsecutive;
+    var titleMaxChars, contentMaxChars, daysConsecutive;
+
     if (!administrator) {
+
         // remove sticky, _0 it if is the first item
         $('#field_336_0').css('display', 'none');
-        $('label[for="field_336_0"]').css('display', 'none');
-        $('label[for="field_336_0"]').next().css('display', 'none');
+        $('label[for="field_336_0"]').css('display', 'none').next().css('display', 'none');
 
-        titleWC = 30;
-        contentWC = 140;
+        titleMaxChars = 30;
+        contentMaxChars = 140;
         daysConsecutive = 2;
     } else {
-        titleWC = 50;
-        contentWC = 200;
+        titleMaxChars = 50;
+        contentMaxChars = 200;
         daysConsecutive = 10;
     }
 
-    var optionList = [];
-    $('#field_332 > option').each(function (index, item) {
-        optionList.push(item.text);
-    });
-    console.log(optionList);
+    // Form elements
+    var $startDateField = $('#field_332');
+    var $endDateField = $('#field_333');
+    var $noticeForm = $startDateField.closest('form');
 
-    // code that adjusts the end date whenever the start date changes
-    $('#field_332').on('change', function () {
-        console.log('change deleted');
+
+
+    var startDates = [];
+    $startDateField.children('option').each(function (index, item) {
+        startDates.push(item.text);
+    });
+    console.log(startDates);
+
+    // Set the maximum end date when the start date changes
+    $startDateField.on('change', function () {
         var newValue = this.value;
 
-        var where = optionList.indexOf(newValue);
-        if (where == -1) {
-            alert("Cannot find where is " + newValue + "!");
+        var startDateIndex = startDates.indexOf(newValue);
+        if (startDateIndex === -1) {
+            alert("Cannot find startDateIndex " + newValue + "!");
         }
-        console.log("Where: " + where);
+        console.log("Where: " + startDateIndex);
 
-        $('#field_333').empty();
-        var until = daysConsecutive + where;
-        if (until > optionList.length) until = optionList.length;
+        // Remove existing end dates
+        $endDateField.empty();
+
+        var until = Math.min(daysConsecutive + startDateIndex, startDates.length);
+
         console.log("Until: " + until);
-        for (var f = where; f < until; f++) {
-            var v = optionList[f];
-            var item;
-            if (f == where) item = $('<option/>', {value: v, text: v, selected: "selected"});
-            else item = $('<option/>', {value: v, text: v});
-            $('#field_333').append(item);
-        }
+        for (var f = startDateIndex; f < until; f++) {
+            var v = startDates[f];
 
+            var item;
+            if (f === startDateIndex) {
+                item = $('<option/>', {value: v, text: v, selected: "selected"});
+            } else {
+                item = $('<option/>', {value: v, text: v});
+            }
+
+            $endDateField.append(item);
+        }
     });
 
     // First add the input elements that we will feed to the Full Content textarea
     var content = $('#ctt-input');
 
-    // title elements
-    content.append($('<div><span class="ctt-label">Title</span> (<span id="ctt-title-counter"></span> characters remaining)</div>'));
+    // Title input
+    content.append($('<div><label for="ctt-title" class="ctt-label">Title</label> (<span id="ctt-title-counter"></span> characters remaining)</div>'));
     content.append($('<input/>', {id: 'ctt-title', class: 'ctt-css-input'}));
-
-    // content elements
-    content.append($('<div><span class="ctt-label">Content</span> (<span id="ctt-content-counter"></span> characters remaining)</div>'));
-    content.append($('<textarea/>', {id: 'ctt-content', class: 'ctt-css-input', rows: 3}));
-
-    // link elements
-    content.append($('<div><span class="ctt-label">Link</span> (optional, will appear at end of notice)</div>'));
-    content.append($('<input/>', {id: 'ctt-link', class: 'ctt-css-input'}));
 
     $('#ctt-title').simplyCountable({
         counter: '#ctt-title-counter',
         countType: 'characters',
-        maxCount: titleWC,
+        maxCount: titleMaxChars,
     });
+
+    // Content input
+    content.append($('<div><label for="ctt-content" class="ctt-label">Content</label> (<span id="ctt-content-counter"></span> characters remaining)</div>'));
+    content.append($('<textarea/>', {id: 'ctt-content', class: 'ctt-css-input', rows: 3}));
 
     $('#ctt-content').simplyCountable({
         counter: '#ctt-content-counter',
         countType: 'characters',
-        maxCount: contentWC,
+        maxCount: contentMaxChars,
     });
 
-    $('input[type="submit"]').click(function (e) {
+    // Link input
+    content.append($('<div><span class="ctt-label">Link</span> (optional, will appear at end of notice)</div>'));
+    content.append($('<input/>', {id: 'ctt-link', class: 'ctt-css-input'}));
+
+    $noticeForm.on('submit', function (e) {
+
         var moreLink = $('#ctt-link').val();
         if (moreLink) {
-            moreLink = ' <a href="' + moreLink + '">' + '[more...]' + '</a>';
+            moreLink = ' <a href="' + moreLink + '" target="_blank">[Read More...]</a>';
         } else {
             moreLink = '';
         }
 
-        if (($("#ctt-title").val() + $("#ctt-content").val()).length <= titleWC + contentWC) {
-            var concatValue = '<b>' + $("#ctt-title").val() + '</b>: ' + $('#ctt-content').val() + moreLink;
-            $('#field_334').val(concatValue);
-        } else {
-            alert("Notice is still over the character limit!")
+        var title = $("#ctt-title").val();
+        var content = $("#ctt-content").val();
+
+        // Check notice is not over the length limit
+        if ((title + content).length > titleMaxChars + contentMaxChars) {
+            alert("Notice is still over the character limit!");
             e.preventDefault();
+            return false;
         }
+
+        // Combine the text and content into a hidden field
+        var concatValue = '<strong>' + title + '</strong>: ' + content + moreLink;
+        $('#field_334').val(concatValue);
+
+        // Continue submitting form
     });
 
 }
