@@ -85,7 +85,7 @@ function initNotices() {
     var content = $('#ctt-input');
 
     // Title input
-    content.append($('<div><label for="ctt-title" class="ctt-label">Title</label> (<span id="ctt-title-counter"></span> characters remaining)</div>'));
+    content.append($('<div><label for="ctt-title" class="ctt-label">Title:</label> (<span id="ctt-title-counter"></span> characters remaining)</div>'));
     content.append($('<input/>', {id: 'ctt-title', class: 'ctt-css-input'}));
 
     $('#ctt-title').simplyCountable({
@@ -95,7 +95,7 @@ function initNotices() {
     });
 
     // Content input
-    content.append($('<div><label for="ctt-content" class="ctt-label">Content</label> (<span id="ctt-content-counter"></span> characters remaining)</div>'));
+    content.append($('<div><label for="ctt-content" class="ctt-label">Content:</label> (<span id="ctt-content-counter"></span> characters remaining)</div>'));
     content.append($('<textarea/>', {id: 'ctt-content', class: 'ctt-css-input', rows: 3}));
 
     $('#ctt-content').simplyCountable({
@@ -105,7 +105,7 @@ function initNotices() {
     });
 
     // Link input
-    content.append($('<div><span class="ctt-label">Link</span> (optional, will appear at end of notice)</div>'));
+    content.append($('<div><label for="ctt-link" class="ctt-label">Link:</label> (Optional. A "Read More" will appear at end of notice linking to this URL)</div>'));
     content.append($('<input/>', {id: 'ctt-link', class: 'ctt-css-input'}));
 
     $noticeForm.on('submit', function (e) {
