@@ -13,11 +13,17 @@ function initNotices() {
         alert("Alert ClassroomTechTools, problem with discovering the current user!");
         return;
     }
-    var userId = profileUrl.match(/[0-9]+$/)[0];  // last few digits at the end
+
+    // Get userID from profile URL
+    var userId = profileUrl.match(/[0-9]+$/)[0];
     userId = parseInt(userId);
 
+    /* global adminUserIdList */
+
     var administrator = adminUserIdList.indexOf(userId) !== -1;
-    administrator && console.log("Detected admin");
+    if (administrator) {
+        console.log("Detected admin");
+    }
 
     console.log(userId, adminUserIdList, administrator);
 
@@ -42,7 +48,6 @@ function initNotices() {
     var $startDateField = $('#field_332');
     var $endDateField = $('#field_333');
     var $noticeForm = $startDateField.closest('form');
-
 
 
     var startDates = [];
@@ -91,7 +96,7 @@ function initNotices() {
     $('#ctt-title').simplyCountable({
         counter: '#ctt-title-counter',
         countType: 'characters',
-        maxCount: titleMaxChars,
+        maxCount: titleMaxChars
     });
 
     // Content input
@@ -101,7 +106,7 @@ function initNotices() {
     $('#ctt-content').simplyCountable({
         counter: '#ctt-content-counter',
         countType: 'characters',
-        maxCount: contentMaxChars,
+        maxCount: contentMaxChars
     });
 
     // Link input
