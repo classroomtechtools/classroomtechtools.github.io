@@ -11,7 +11,7 @@
     // Functions for block with type 'w' will get a callback function as the 
     // final argument. This should be called to indicate that the block can
     // stop waiting.
-    ext.submit_name_to_google_form = function(name, callback) {
+    ext.submit_name_to_google_form = function(name) {
 
         $.ajax({
             'url': 'https://docs.google.com/a/igbis.edu.my/forms/d/e/1FAIpQLSdIdVqYsDNuWuSMjBYZk2owBmiXiyVk_PUhOyrlF47gCn24-g/formResponse',
