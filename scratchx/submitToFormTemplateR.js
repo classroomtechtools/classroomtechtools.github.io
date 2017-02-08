@@ -18,7 +18,7 @@
             data: {'entry.1841900870': name},
             dataType: 'jsonp',
             success: function(result) {
-                callback("done")
+                callback("done");
             }
         })
     };
