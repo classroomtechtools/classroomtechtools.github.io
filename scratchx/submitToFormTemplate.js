@@ -26,7 +26,7 @@
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            ['w', 'Submit %n to Google Form', 'submit_name_to_google_form', ""],
+            ['w', 'Submit %s to Google Form', 'submit_name_to_google_form', ""],
         ]
     };
 
