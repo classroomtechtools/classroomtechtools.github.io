@@ -18,7 +18,7 @@
             data: {'entry.1841900870': name},
             dataType: 'jsonp',
             success: function(result) {
-                callback("done")
+                callback()
             }
         })
     };
@@ -26,7 +26,7 @@
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            ['R', 'submit to google form', 'submit_name_to_google_form', "No name"],
+            ['w', 'Submit %n to Google Form', 'submit_name_to_google_form', ""],
         ]
     };
 
