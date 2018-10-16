@@ -9,13 +9,6 @@
  * @param {number} params.headerRow Which row contains the name of the field (default=params.numHeaders-1)
  * @param {bool} params.recalc True if the spreadsheet should be to be recalculated (randomized) on each read in (default=False)
  * @returns {any}
- * 
-(C) Released as Open Source (MIT)
-Copyright 2018 Adam Morris classroomtechtools.ctt@gmail.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 function DataFromSpreadsheet(params) {
   var ss, sheet, data, model;
@@ -45,8 +38,19 @@ function DataFromSpreadsheet(params) {
   // Before we start reading in, force the spreadsheet to recalc, so if we use any random numbers 
   // they are random for each read-in
   if (params.recalc) {
-    sheet.getRange(1, 1).setValue(sheet.getRange(1, 1).getValue());
-    SpreadsheetApp.flush();
+    var ok;
+    ok = false;
+    try {
+      ss.getEditors(); // if user does not have edit permission, this throws an error, so we catch it and print an error in the console instead
+      ok = true;
+    } catch (e) {
+      console.log("Please give edit access to spreadsheet ID " + params.spreadsheetId + " in order for recalc feature to work.");
+    }
+    if (ok) {
+      // force recalc by getting and setting value, then calling flush
+      sheet.getRange(1, 1).setValue(sheet.getRange(1, 1).getValue());
+      SpreadsheetApp.flush();
+    }
   }
   //
   
@@ -93,4 +97,51 @@ function DataFromSpreadsheet(params) {
       //
     }, []
   );
+}
+
+/*
+ * Save a record to the spreadsheet
+ * 
+ * @param {object} 
+ * @param {string} params.spreadsheetId The ID of the target spreadsheet to write otop
+ * @param {string} params.sheetName The name of the sheet to insert to. If it doesn't already exist, creates a new one with headers in the object
+ * @param {string} params.record The record to insert
+ */
+function DataToSpreadsheet(params) {
+  var ss, sheet, headers, values;
+  params = params || {};
+  if (!params.spreadsheetId) throw Error("Spreadsheet ID not provided");
+  if (!params.sheetName) throw Error("Sheet name not provided");
+  if (!params.record) throw Error("No record provided.");
+  
+  ss = SpreadsheetApp.openById(params.spreadsheetId);
+  sheet = ss.getSheetByName(params.sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(params.sheetName);
+    headers = Object.keys(params.record).sort();
+    sheet.getRange(1, 1, 1, headers.length)
+         .setValues([headers]);
+    sheet.setFrozenRows(1);
+  } else {
+    headers = Object.keys(params.record).sort();
+  }
+  values = headers.reduce(
+    function (acc, header) {
+      acc.push(params.record[header]);
+      return acc;
+    }, []
+  );
+  sheet.insertRowAfter(1)
+       .getRange(2, 1, 1, headers.length)
+       .setValues([values]);
+}
+
+function SaveData (params) {
+  var record;
+  record = app.models.Records.newRecord();
+  record.Email = params.email;
+  record.Seconds = params.seconds;
+  record.Problem = params.problem;
+  record.When = new Date();
+  app.saveRecords([record]);
 }
