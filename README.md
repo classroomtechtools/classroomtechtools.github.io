@@ -1,12 +1,37 @@
 # Released Software
 
-## Practical Libraries:
+## Practical Libraries
 
 Libraries aimed at "citizen developers."
 
-### [Object Store](https://github.com/classroomtechtools/objectStore)
+### [Object Store](https://classroomtechtools.github.io/ObjectStore/)
 
 Use the cache and properties store like a pro, without having to code it out. 
+
+```js
+// "global" stores, choose from 'script', 'document' or 'user'
+const autoStore = ObjectStore.create();  // 'script by default'
+const manualStore = ObjectStore.create('script', {manual: true});
+
+function autopersist () {   
+    // persisted now:
+    autoStore.set('key', {value: 'value'});  
+    ... // on next execution
+    const value = autoStore.get('key');
+}
+
+function manuallypersist () {
+    const dataArray = [ {idx: 1, d: 'd'}, ... ];
+    for (const item of dataArray) {
+        // keys must be strings (throws error if not):
+        const key = item.idx.toString();  
+        // does not persist in PropertiesStorage yet:
+        manualStore.set(key, item);  
+    }
+    // manually tell it to persist, more performant
+    manualStore.persist(); 
+}
+```
 
 ### [Dottie](https://github.com/classroomtechtools/dottie)
 
@@ -18,23 +43,33 @@ Also includes the handy `dottie.jsonsToRows` function, which will take an array 
 
 (to be released)
 
-## Utility Libraries:
+## Utilities
 
-Libraries aimed at specific use cases, or to make more libraries:
+Stuff for specific use cases, or to make more libraries:
+
+### [Rhino -> V8 Migration Assistant](https://script.google.com/macros/s/AKfycby7jvgxiqj2Eok7pXb1dHoJPQJ4QbCJjBP42N-Wo9JMqlAxIHs/exec)
+
+Help convert legacy code to the equivalent V8 code.
 
 ### [Enforce Arguments](https://github.com/classroomtechtools/EnforceArguments)
 
 This allows the developer to declare that certain parameters passed to a certain function must be of a certain type.
 
-### [Context Manager](https://github.com/classroomtechtools/ContextManager)
+```js
+function myFunction(stringArg) {
+    Enforce.positional(arguments, {stringArg: '!string'});
+}
+```
+
+### [Context Manager](https://classroomtechtools.github.io/ContextManager/)
 
 This allows the developer to define a block of code that has a head and tail function execute, even if an error occurs at any point.
 
-## Tooling Libraries:
+## Tooling Libraries
 
 These are aimed for the more sophisticated user exploring the appscripts stack, with node, more generally.
 
-### [Unit Testing](https://github.com/classroomtechtools/Utgs)
+### [Unit Testing](https://classroomtechtools.github.io/Utgs/)
 
 The underpinning of a good set of libraries is that they be unit tested, that way other developers can depend on them. It enables developers to write unit tests that can be executed over and over again.
 

@@ -92,24 +92,53 @@
   <section class="readme">
     <article>
       <h1>Released Software</h1>
-<h2>Practical Libraries:</h2>
+<h2>Practical Libraries</h2>
 <p>Libraries aimed at &quot;citizen developers.&quot;</p>
-<h3><a href="https://github.com/classroomtechtools/objectStore">Object Store</a></h3>
+<h3><a href="https://classroomtechtools.github.io/ObjectStore/">Object Store</a></h3>
 <p>Use the cache and properties store like a pro, without having to code it out.</p>
+<pre class="prettyprint source lang-js"><code>// &quot;global&quot; stores, choose from 'script', 'document' or 'user'
+const autoStore = ObjectStore.create();  // 'script by default'
+const manualStore = ObjectStore.create('script', {manual: true});
+
+function autopersist () {   
+    // persisted now:
+    autoStore.set('key', {value: 'value'});  
+    ... // on next execution
+    const value = autoStore.get('key');
+}
+
+function manuallypersist () {
+    const dataArray = [ {idx: 1, d: 'd'}, ... ];
+    for (const item of dataArray) {
+        // keys must be strings (throws error if not):
+        const key = item.idx.toString();  
+        // does not persist in PropertiesStorage yet:
+        manualStore.set(key, item);  
+    }
+    // manually tell it to persist, more performant
+    manualStore.persist(); 
+}
+</code></pre>
 <h3><a href="https://github.com/classroomtechtools/dottie">Dottie</a></h3>
 <p>Make jsons or javascript objects by using strings; useful in a variety of applications.</p>
 <p>Also includes the handy <code>dottie.jsonsToRows</code> function, which will take an array of jsons and convert them into spreadsheet-friendly rows and columns.</p>
 <h3>Format Logger</h3>
 <p>(to be released)</p>
-<h2>Utility Libraries:</h2>
-<p>Libraries aimed at specific use cases, or to make more libraries:</p>
+<h2>Utilities</h2>
+<p>Stuff for specific use cases, or to make more libraries:</p>
+<h3><a href="https://script.google.com/macros/s/AKfycby7jvgxiqj2Eok7pXb1dHoJPQJ4QbCJjBP42N-Wo9JMqlAxIHs/exec">Rhino -&gt; V8 Migration Assistant</a></h3>
+<p>Help convert legacy code to the equivalent V8 code.</p>
 <h3><a href="https://github.com/classroomtechtools/EnforceArguments">Enforce Arguments</a></h3>
 <p>This allows the developer to declare that certain parameters passed to a certain function must be of a certain type.</p>
-<h3><a href="https://github.com/classroomtechtools/ContextManager">Context Manager</a></h3>
+<pre class="prettyprint source lang-js"><code>function myFunction(stringArg) {
+    Enforce.positional(arguments, {stringArg: '!string'});
+}
+</code></pre>
+<h3><a href="https://classroomtechtools.github.io/ContextManager/">Context Manager</a></h3>
 <p>This allows the developer to define a block of code that has a head and tail function execute, even if an error occurs at any point.</p>
-<h2>Tooling Libraries:</h2>
+<h2>Tooling Libraries</h2>
 <p>These are aimed for the more sophisticated user exploring the appscripts stack, with node, more generally.</p>
-<h3><a href="https://github.com/classroomtechtools/Utgs">Unit Testing</a></h3>
+<h3><a href="https://classroomtechtools.github.io/Utgs/">Unit Testing</a></h3>
 <p>The underpinning of a good set of libraries is that they be unit tested, that way other developers can depend on them. It enables developers to write unit tests that can be executed over and over again.</p>
 <p>I find this particularly useful and helpful when refactoring or adding features.</p>
 <h3><a href="https://github.com/classroomtechtools/virtualgs">virtualgs</a></h3>
