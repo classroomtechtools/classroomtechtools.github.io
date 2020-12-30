@@ -119,8 +119,39 @@ function manuallypersist () {
     manualStore.persist(); 
 }
 </code></pre>
-<h3><a href="https://github.com/classroomtechtools/dottie">Dottie</a></h3>
+<h3><a href="https://classroomtechtools.github.io/dottie/">Dottie</a></h3>
 <p>Make jsons or javascript objects by using strings; useful in a variety of applications.</p>
+<pre class="prettyprint source lang-js"><code>const obj = dottie.set({}, 'path.to.value', 100);
+Logger.log(obj);
+/* 
+{
+  path: {
+    to: {
+      value: 100
+    }
+  }
+}
+*/
+const value = dottie.get(obj, 'path.to.value');
+Logger.log(value);
+/*
+100
+*/
+
+const obj = dottie.set({}, 'path.to.array[0].name', 'Bob');
+Logger.log(obj);
+/*
+{
+  path: {
+    to: {
+      array: [
+        {name: &quot;Bob&quot;}
+      ]
+    }
+  }
+}
+*/
+</code></pre>
 <p>Also includes the handy <code>dottie.jsonsToRows</code> function, which will take an array of jsons and convert them into spreadsheet-friendly rows and columns.</p>
 <h3>Format Logger</h3>
 <p>(to be released)</p>

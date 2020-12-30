@@ -37,6 +37,39 @@ function manuallypersist () {
 
 Make jsons or javascript objects by using strings; useful in a variety of applications. 
 
+```js
+const obj = dottie.set({}, 'path.to.value', 100);
+Logger.log(obj);
+/* 
+{
+  path: {
+    to: {
+      value: 100
+    }
+  }
+}
+*/
+const value = dottie.get(obj, 'path.to.value');
+Logger.log(value);
+/*
+100
+*/
+
+const obj = dottie.set({}, 'path.to.array[0].name', 'Bob');
+Logger.log(obj);
+/*
+{
+  path: {
+    to: {
+      array: [
+        {name: "Bob"}
+      ]
+    }
+  }
+}
+*/
+```
+
 Also includes the handy `dottie.jsonsToRows` function, which will take an array of jsons and convert them into spreadsheet-friendly rows and columns.
 
 ### Format Logger
