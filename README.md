@@ -33,7 +33,7 @@ function manuallypersist () {
 }
 ```
 
-### [Dottie](https://github.com/classroomtechtools/dottie)
+### [Dottie](https://classroomtechtools.github.io/dottie/)
 
 Make jsons or javascript objects by using strings; useful in a variety of applications. 
 
