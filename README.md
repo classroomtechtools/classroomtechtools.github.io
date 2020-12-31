@@ -150,7 +150,7 @@ Not sure how useful this will be with the new IDE, but thought I'd catalog it he
 
 These are aimed for the more sophisticated user exploring the appscripts stack, with node, more generally.
 
-### [Appscripts Modules featuring Svelte](https://github.com/classroomtechtools/appscripts-modules-ft-svelte)
+### [Appscripts Modules featuring Svelte](https://classroomtechtools.github.io/appscripts-modules-ft-svelte/)
 
 This is a node repo that allows me to create most of the libraries listed above, complete with unit testing, dependecy resolution, and full-stack implementation.
 
