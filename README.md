@@ -2,7 +2,7 @@
 
 ## Practical Libraries
 
-Libraries aimed at "citizen developers."
+Libraries aimed at "citizen developers" working in the AppsScripts platform.
 
 ### [Object Store](https://classroomtechtools.github.io/ObjectStore/)
 
@@ -72,17 +72,34 @@ Logger.log(obj);
 
 Also includes the handy `dottie.jsonsToRows` function, which will take an array of jsons and convert them into spreadsheet-friendly rows and columns.
 
-### Format Logger
+### [Rhino -> V8 Migration Assistant](https://script.google.com/macros/s/AKfycby7jvgxiqj2Eok7pXb1dHoJPQJ4QbCJjBP42N-Wo9JMqlAxIHs/exec)
 
-(to be released)
+This is a web app that allows developers to convert their legacy rhino code to V8. Think of it as a first-pass migration assistant, helping those who want to learn some of the new language syntax features with a robot assistant.
+
+## Practical Tools
+
+Stuff made for GSuite administators or other Computer Science teachers.
+
+### [Meets Audit Activity Insights](https://github.com/classroomtechtools/Meets-Audit-Activity-Insights)
+
+A spreadsheet that GSuite administrator can use to get a bird's-eye view of some of the Google Meets activity happening on the domain.
+
+The code itself might be of interest, as it interacts in batch with the target endpoint.
+
+### [IB Pseudocode Python](https://github.com/classroomtechtools/ib_pseudocode_python)
+
+I use this to teach IB Computer Science. Using gitpod, it provides a server environment for students to execute real IB pseudocode. It comes with batteries included, such as the data structures that IB students need to learn how to use during the course.
+
+### [Import My Timetable into Google Calendar](https://github.com/classroomtechtools/import-my-timetable-into-google-calendar)
+
+At the school where I work, probably one of my more popular things that I ever made. Since we have a seven-day rotating schedule that does not coorespond to M-F, and we also use Google Calendar extensively, we need a way to create individual events to match the rotating schedule.
+
+It's a spreadsheet with fancy formulas, and you download the resulting CSV from the export tab.
 
 ## Utilities
 
 Stuff for specific use cases, or to make more libraries:
 
-### [Rhino -> V8 Migration Assistant](https://script.google.com/macros/s/AKfycby7jvgxiqj2Eok7pXb1dHoJPQJ4QbCJjBP42N-Wo9JMqlAxIHs/exec)
-
-Help convert legacy code to the equivalent V8 code.
 
 ### [Enforce Arguments](https://github.com/classroomtechtools/EnforceArguments)
 
@@ -98,15 +115,76 @@ function myFunction(stringArg) {
 
 This allows the developer to define a block of code that has a head and tail function execute, even if an error occurs at any point.
 
+```js
+/**
+ * A simple (and useless) context manager that illustrates patterns
+ */
+function myFunction () {
+  const context = ContextManager.create();
+  context.head = function (param) {
+    // this will be state, by default just an object
+    this.inHead = true;
+  };
+  context.body = function (param) {
+    this.inBody = true;
+    return param;
+  };
+  context.tail = function (param) {
+    this.inTail = true;
+  }
+  const result = context.execute("echo");
+  Logger.log(result);  
+  //     echo
+  Logger.log(context.state);  
+  //     {inHead: true, inTail: true, inBody: true};
+}
+```
+
+### [NamespacedLib](https://github.com/classroomtechtools/NamespacedLib)
+
+I accidentally discovered that the `@name` annotation in jsdoc for some reason worked and explored how it might be useful. It turns out that it can be used to create namespaces on one's libraries.
+
+Not sure how useful this will be with the new IDE, but thought I'd catalog it here anyway.
+
 ## Tooling Libraries
 
 These are aimed for the more sophisticated user exploring the appscripts stack, with node, more generally.
+
+### [Appscripts Modules featuring Svelte](https://github.com/classroomtechtools/appscripts-modules-ft-svelte)
+
+This is a node repo that allows me to create most of the libraries listed above, complete with unit testing, dependecy resolution, and full-stack implementation.
+
+It also enables me to locally build a web app or sidebar app with the front-end Svelte.
 
 ### [Unit Testing](https://classroomtechtools.github.io/Utgs/)
 
 The underpinning of a good set of libraries is that they be unit tested, that way other developers can depend on them. It enables developers to write unit tests that can be executed over and over again.
 
-I find this particularly useful and helpful when refactoring or adding features.
+I find unit testing particularly useful and helpful when refactoring or adding features.
+
+```js
+function Tests () {
+  // sorta like importing, this inits the variables
+  const {describe, it, assert} = Utgs.module(); 
+
+  describe("Test Category 1", function () {
+    it("Have the value of Yes", function () {
+      assert.equals({
+        comment: 'If it fails, it displays in the log',
+        expected: 'Yes',
+        actual: 'Yes'
+      });
+    });
+    it("Have the value of No", function () {
+      assert.equals({
+        comment: 'If it fails, it displays in the log',
+        expected: 'No',
+        actual: 'Yes'
+      });
+    });
+  });
+}
+```
 
 ### [virtualgs](https://github.com/classroomtechtools/virtualgs)
 
@@ -114,8 +192,12 @@ When using a node environment, you may want to execute appscript code in a run-t
 
 Also able to define mocks. (Also deployed in some testing suites.)
 
-### [Appscripts Modules featuring Svelte](https://github.com/classroomtechtools/appscripts-modules-ft-svelte)
+```js
+import virtualgs from '@classroomtechtools/virtualgs';
 
-This is a node repo that allows me to create all of the libraries above, complete with unit testing, dependecy resolution, etc.
+const invoke = virtualgs('scripts');  // scripts is the directory
+const parameters = [1, 2];
+invoke('myFunction', ...parameters)
+  .then(result => console.log(result));
+```
 
-It also enables me to locally build a web app or sidebar app with the front-end Svelte.
