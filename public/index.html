@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<meta name="generator" content="Hugo 0.80.0" />
+    <meta charset="utf-8">
+<title>My presentation</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/reveal-js/css/reveal.css"><link rel="stylesheet" href="/reveal-js/css/theme/sky.css" id="theme">
+<link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+
+  
+
+    <section><h1 id="proposal">Proposal</h1>
+<p>Standard Libraries for Google AppsScripts</p>
+</section><section>
+
+
+<section data-shortcode-section>
+<h2 id="observations">Observations</h2>
+<p>Regarding the concept of citizen developers (based on the community forums)</p>
+</section><section>
+<ul>
+<li>They struggle with &ldquo;simple&rdquo; patterns, such as iterating over data structures. <!-- .element: class="fragment" data-fragment-index="1" --></li>
+<li>They struggle with commonly used design problems, such as how to use a cache <!-- .element: class="fragment" data-fragment-index="2" --></li>
+<li>There&rsquo;s some more advanced coders who would like to make it easier for these citizen developers to use their code</li>
+</ul>
+</section><section>
+<h2 id="identifiers">Identifiers</h2>
+<p>The platform&rsquo;s runtime already provides developers with identifiers with very cool code completion.</p>
+<p>Some are built-in, some need to be specifically enabled:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myFunction</span> () {
+<span style="display:block;width:100%;background-color:#3c3d38">	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ss</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SpreadsheetApp</span>.<span style="color:#a6e22e">getActiveSpreadsheet</span>();
+</span><span style="display:block;width:100%;background-color:#3c3d38">	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cache</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">CacheService</span>.<span style="color:#a6e22e">getUserCache</span>();
+</span>
+<span style="display:block;width:100%;background-color:#3c3d38">	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sheets</span>.<span style="color:#a6e22e">Spreadsheets</span>.<span style="color:#a6e22e">Values</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;&lt;id&gt;&#39;</span>, <span style="color:#e6db74">&#39;Sheet1!A1:D5&#39;</span>);
+</span>}
+<span style="color:#e6db74">```
+</span></code></pre></div>
+</section><section>
+<h2 id="libraries">Libraries</h2>
+<p>Libraries are a great way to share code and problem-solving, but. . .</p>
+<ul>
+<li>ES modules are not supported <!-- .element: class="fragment" data-fragment-index="1" --></li>
+<li>Instead they are imported with ID code <!-- .element: class="fragment" data-fragment-index="2" --></li>
+<li>No search, or community-guided recommended ones <!-- .element: class="fragment" data-fragment-index="3" --></li>
+</ul>
+</section><section>
+<h2 id="other-ecosystems">Other ecosystems</h2>
+<p>Node, Python, Ruby all have mechanisms for end user developers to build upon more advanced coding sleuths to provide them with libraries with abstractions that solve problems.</p>
+
+</section>
+</section><section>
+<h1 id="solutions">Solutions</h1>
+<p>Create a way for even Citizen Developers to build upon the expertise of some more advanced coders, by allowing for &ldquo;standard libraries&rdquo;</p>
+</section><section>
+<h2 id="standard-libraries">Standard Libraries</h2>
+<p>A group of libraries that have been vetted by the community as providing dependable, reliable, and easy-to-understand abstractions that citizen developers can use.</p>
+<p>How do we access them?</p>
+</section><section>
+<h2 id="possible-implementations">Possible Implementations</h2>
+</section><section>
+
+
+<section data-shortcode-section>
+<h2 id="1-use-existing-library-system">1) Use existing Library system</h2>
+<p>Make it so that there is a list of some libraries, and the end user adds them &ldquo;the regular way&rdquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Range</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Identifier</span>();  <span style="color:#75715e">// chosen by user
+</span></code></pre></div></section><section>
+<h3 id="proscons">Pros/Cons</h3>
+<p>Pros: <!-- .element: class="fragment" data-fragment-index="1" --></p>
+<ul>
+<li>Relies on the build-in way to add a library <!-- .element: class="fragment" data-fragment-index="1" --></li>
+</ul>
+<p>Cons: <!-- .element: class="fragment" data-fragment-index="2" --></p>
+<ul>
+<li>JSDoc does not work well with autocomplete <!-- .element: class="fragment" data-fragment-index="2" --></li>
+</ul>
+
+</section>
+</section><section>
+
+
+<section data-shortcode-section>
+<h2 id="copy-and-paste-a-file">Copy and paste a file</h2>
+<p>We could build a github repo where they can choose the libraries, and then copy and paste it into their project.</p>
+</section><section>
+<h3 id="proscons">Pros/Cons</h3>
+<p>Pros: <!-- .element: class="fragment" data-fragment-index="1" --></p>
+<ul>
+<li>End users get the source code and can fiddle with it easily <!-- .element: class="fragment" data-fragment-index="1" --></li>
+<li>Great autocomplete support <!-- .element: class="fragment" data-fragment-index="1" --></li>
+</ul>
+<p>Cons: <!-- .element: class="fragment" data-fragment-index="2" --></p>
+<ul>
+<li>These libraries would be populating the global namespace <!-- .element: class="fragment" data-fragment-index="2" --></li>
+<li>The order of parsing for files is important if they use in global context <!-- .element: class="fragment" data-fragment-index="2" --></li>
+</ul>
+
+</section>
+</section><section>
+
+
+<section data-shortcode-section>
+<h2 id="reserved-namespace">Reserved Namespace</h2>
+<p>Define a reserved word as a namespace, like <code>Import</code>, we could build libraries on that as a namespace.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#75715e">// &#34;import&#34; it
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> {<span style="color:#a6e22e">Range</span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">Import</span>;
+
+<span style="color:#75715e">// define
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">range</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Range</span>.<span style="color:#a6e22e">fromA1Notation</span>(<span style="color:#e6db74">&#39;Sheet1!A1:C&#39;</span>, {<span style="color:#a6e22e">dataRange</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>});
+
+<span style="color:#75715e">// use (here, as an iterator)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">row</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">range</span>) {
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cell</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">row</span>) {
+        <span style="color:#75715e">// object `cell` has methods/properties
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">cell</span>.<span style="color:#a6e22e">a1Notation</span>;
+		<span style="color:#a6e22e">cell</span>.<span style="color:#a6e22e">value</span>;
+	}
+}
+</code></pre></div></section><section>
+<h3 id="proscons">Pros/Cons</h3>
+<p>Pros: <!-- .element: class="fragment" data-fragment-index="1" --></p>
+<ul>
+<li>Introduces the idea of importing stuff <!-- .element: class="fragment" data-fragment-index="1" --></li>
+<li>Great autocomplete support <!-- .element: class="fragment" data-fragment-index="1" --></li>
+<li>Does not pollute global namespace <!-- .element: class="fragment" data-fragment-index="1" --></li>
+</ul>
+<p>Cons: <!-- .element: class="fragment" data-fragment-index="2" --></p>
+<ul>
+<li>Libraries need to be pre-coded so that the Import object is mapped with libraries <!-- .element: class="fragment" data-fragment-index="2" --></li>
+<li>Still potential for name conflicts, which can be solved by convention <!-- .element: class="fragment" data-fragment-index="2" --></li>
+</ul>
+
+</section>
+</section><section>
+<h1 id="conclusion">Conclusion?</h1>
+<p>Let&rsquo;s talk!</p>
+</section>
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+<a href="/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"theme":"sky"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+    
+    
+  </body>
+</html>
