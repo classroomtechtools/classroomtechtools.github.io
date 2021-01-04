@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Faria on My New Hugo Site</title>
+    <link>https://classroomtechtools.github.io/faria/faria/</link>
+    <description>Recent content in Faria on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://classroomtechtools.github.io/faria/faria/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://classroomtechtools.github.io/faria/faria/proposal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://classroomtechtools.github.io/faria/faria/proposal/</guid>
+      <description>Proposal Standard Libraries for Google AppsScripts
+ Observations Regarding the concept of citizen developers (based on the community forums)
+  They struggle with &amp;ldquo;simple&amp;rdquo; patterns, such as iterating over data structures.  They struggle with commonly used design problems, such as how to use a cache  There&amp;rsquo;s some more advanced coders who would like to make it easier for these citizen developers to use their code   Identifiers The platform&amp;rsquo;s runtime already provides developers with identifiers with very cool code completion.</description>
+    </item>
+    
+  </channel>
+</rss>
