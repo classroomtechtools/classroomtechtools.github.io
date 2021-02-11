@@ -100,6 +100,9 @@ It's a spreadsheet with fancy formulas, and you download the resulting CSV from 
 
 Stuff for specific use cases, or to make more libraries:
 
+### [Endpoints](https://classroomtechtools.github.io/Endpoints/)
+
+A library SDK for Google AppsScripts that makes working with API endpoints a cinch. You can use it as an abstraction of UrlFetchApp, or use it to wrap Google APIs that don't have advanced services yet.
 
 ### [Enforce Arguments](https://github.com/classroomtechtools/EnforceArguments)
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "## Libs",
   "scripts": {
-    "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc-config.json --verbose --readme README.md"
+    "generate-docs": "jsdoc --configure jsdoc-config.json --verbose --readme README.md"
   },
   "repository": {
     "type": "git",
