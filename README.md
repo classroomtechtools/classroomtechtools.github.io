@@ -104,6 +104,10 @@ Stuff for specific use cases, or to make more libraries:
 
 A library SDK for Google AppsScripts that makes working with API endpoints a cinch. You can use it as an abstraction of UrlFetchApp, or use it to wrap Google APIs that don't have advanced services yet.
 
+### [Chat Advanced Service](https://classroomtechtools.github.io/chat-adv-service/)
+
+Interact with the Google Chat API via AppsScripts.
+
 ### [Enforce Arguments](https://github.com/classroomtechtools/EnforceArguments)
 
 This allows the developer to declare that certain parameters passed to a certain function must be of a certain type.
