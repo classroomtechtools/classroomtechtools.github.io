@@ -80,6 +80,10 @@ This is a web app that allows developers to convert their legacy rhino code to V
 
 Stuff made for GSuite administators or other Computer Science teachers.
 
+### [aSc2mb](https://pypi.org/project/asc2mb/)
+
+Manage your timetable by pasing the XML export from asc and format into two files suitable for upload into ManageBac
+
 ### [Meets Audit Activity Insights](https://github.com/classroomtechtools/Meets-Audit-Activity-Insights)
 
 A spreadsheet that GSuite administrator can use to get a bird's-eye view of some of the Google Meets activity happening on the domain.
