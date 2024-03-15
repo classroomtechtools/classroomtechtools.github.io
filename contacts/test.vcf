@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:EduchologyPlus+
+N:Kim;Yuri
+LANG:ko
+LANG:en
+BDAY:--19770530
+GENDER:M
+EMAIL;TYPE=work:testing@example.com
+END:VCARD
