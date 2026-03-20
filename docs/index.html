@@ -1,1 +1,47 @@
-EduchologyPlus
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo img {
+      max-width: 300px;
+      max-height: 300px;
+      width: auto;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="educhology-logo.png" alt="Logo" />
+  </div>
+</body>
+</html>
